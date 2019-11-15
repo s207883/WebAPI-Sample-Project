@@ -77,7 +77,7 @@ namespace LogTZ.BLL.Implemetations
 		{
 			if ( positionEditModel is null )
 			{
-				throw new ArgumentNullException ( nameof ( positionEditModel ) );
+				return RepositoryActionsResult.DadData;
 			}
 
 			var positionModel = _mapper.Map<Position>(positionEditModel);
