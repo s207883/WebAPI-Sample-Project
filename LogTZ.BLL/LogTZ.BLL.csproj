@@ -5,11 +5,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Implemetations\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\LogTZ.Core\LogTZ.Core.csproj" />
+    <ProjectReference Include="..\LogTZ.DAL\LogTZ.DAL.csproj" />
   </ItemGroup>
 
 </Project>
