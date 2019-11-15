@@ -1,6 +1,6 @@
 ﻿namespace LogTZ.DAL.Model
 {
-	public class EployeePositions
+	public class EployeePosition
 	{
 		/// <summary>
 		/// ИД сотрудника.

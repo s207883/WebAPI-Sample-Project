@@ -18,7 +18,7 @@ namespace LogTZ.DAL
 		/// <summary>
 		/// Должности сотрудников.
 		/// </summary>
-		public DbSet<EployeePositions> EployeePositions { get; set; }
+		public DbSet<EployeePosition> EployeePositions { get; set; }
 
 		/// <summary>
 		/// Основной контекст приложения.
@@ -34,17 +34,17 @@ namespace LogTZ.DAL
 		protected override void OnModelCreating ( ModelBuilder modelBuilder )
 		{
 			#region EployeePosition Table
-			modelBuilder.Entity<EployeePositions> ( )
+			modelBuilder.Entity<EployeePosition> ( )
 				.HasKey ( key => new { key.PositionId, key.EmployeeId } );
 
 
-			modelBuilder.Entity<EployeePositions> ( )
+			modelBuilder.Entity<EployeePosition> ( )
 				.HasOne ( emp => emp.Employee )
 				.WithMany ( ep => ep.EployeePositions )
 				.HasForeignKey ( fk => fk.EmployeeId );
 
 
-			modelBuilder.Entity<EployeePositions> ( )
+			modelBuilder.Entity<EployeePosition> ( )
 				.HasOne ( emp => emp.Position )
 				.WithMany ( ep => ep.EployeePositions )
 				.HasForeignKey ( fk => fk.PositionId );
