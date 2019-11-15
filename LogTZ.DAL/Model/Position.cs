@@ -1,4 +1,6 @@
-﻿namespace LogTZ.DAL.Model
+﻿using System.Collections.Generic;
+
+namespace LogTZ.DAL.Model
 {
 	/// <summary>
 	/// Модель должности.
@@ -19,5 +21,9 @@
 		/// Вес должности (грейд).
 		/// </summary>
 		public int Grade { get; set; }
+
+		#region Навигационные свойства
+		public IEnumerable<EployeePositions> EployeePositions { get; set; }
+		#endregion
 	}
 }

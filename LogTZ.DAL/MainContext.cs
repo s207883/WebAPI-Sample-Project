@@ -1,13 +1,9 @@
-﻿using JetBrains.Annotations;
-using LogTZ.DAL.Model;
+﻿using LogTZ.DAL.Model;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace LogTZ.DAL
 {
-	public class MainContext:DbContext
+	public class MainContext : DbContext
 	{
 		/// <summary>
 		/// Должности.
@@ -18,13 +14,42 @@ namespace LogTZ.DAL
 		/// Сотрудники.
 		/// </summary>
 		public DbSet<Employee> Employees { get; set; }
-		public MainContext ()
+
+		/// <summary>
+		/// Должности сотрудников.
+		/// </summary>
+		public DbSet<EployeePositions> EployeePositions { get; set; }
+
+		/// <summary>
+		/// Основной контекст приложения.
+		/// </summary>
+		public MainContext ( )
 		{
-			Database.EnsureCreated();
+			Database.EnsureCreated ( );
 		}
 
+		/// <summary>
+		/// Реализация FluentAPI.
+		/// </summary>
 		protected override void OnModelCreating ( ModelBuilder modelBuilder )
 		{
+			#region EployeePosition Table
+			modelBuilder.Entity<EployeePositions> ( )
+				.HasKey ( key => new { key.PositionId, key.EmployeeId } );
+
+
+			modelBuilder.Entity<EployeePositions> ( )
+				.HasOne ( emp => emp.Employee )
+				.WithMany ( ep => ep.EployeePositions )
+				.HasForeignKey ( fk => fk.EmployeeId );
+
+
+			modelBuilder.Entity<EployeePositions> ( )
+				.HasOne ( emp => emp.Position )
+				.WithMany ( ep => ep.EployeePositions )
+				.HasForeignKey ( fk => fk.PositionId );
+			#endregion
+
 			base.OnModelCreating ( modelBuilder );
 		}
 	}

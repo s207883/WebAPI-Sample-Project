@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace LogTZ.DAL.Model
 {
@@ -12,7 +11,7 @@ namespace LogTZ.DAL.Model
 		/// <summary>
 		/// ИД сотрудника.
 		/// </summary>
-		public int CustomerId { get; set; }
+		public int EmployeeId { get; set; }
 
 		/// <summary>
 		/// Имя сотрудника.
@@ -23,5 +22,9 @@ namespace LogTZ.DAL.Model
 		/// Дата рождения.
 		/// </summary>
 		public DateTime BirthDate { get; set; }
+
+		#region Навигационные свойства
+		public IEnumerable<EployeePositions> EployeePositions { get; set; }
+		#endregion
 	}
 }
