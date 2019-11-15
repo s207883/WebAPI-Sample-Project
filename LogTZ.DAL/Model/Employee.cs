@@ -7,7 +7,7 @@ namespace LogTZ.DAL.Model
 	/// <summary>
 	/// Модель сотрудника.
 	/// </summary>
-	public class Customer
+	public class Employee
 	{
 		/// <summary>
 		/// ИД сотрудника.
