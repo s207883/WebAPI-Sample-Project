@@ -26,10 +26,11 @@ namespace LogTZ.BLL.Implemetations
 
 		public RepositoryActionsResult DeletePositionById ( int positionId )
 		{
-			///TODO: Добавить проверку, что должность не занята.
 			var position = _mainContext.Positions.FirstOrDefault();
 
-			if ( position == default )
+			var employeePositions = _mainContext.EmployeePositions.FirstOrDefault(ep => ep.PositionId == positionId);
+
+			if ( position == default || employeePositions != default )
 			{
 				return RepositoryActionsResult.DadData;
 			}
