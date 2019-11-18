@@ -20,21 +20,6 @@ namespace LogTZ.BLL.Implemetations
 			_mapper = mapper;
 		}
 
-		public RepositoryActionsResult CreateEmployee ( EmployeeEditModel employeeEditModel )
-		{
-			if ( employeeEditModel is null )
-			{
-				return RepositoryActionsResult.DadData;
-			}
-
-			var employeeModel = _mapper.Map<Employee> ( employeeEditModel );
-
-			_mainContext.Add ( employeeModel );
-			_mainContext.SaveChanges ( );
-
-			return RepositoryActionsResult.Success;
-		}
-
 		public RepositoryActionsResult DeleteEmployeeById ( int employeeId )
 		{
 			var employeeInDb = _mainContext.Employees.FirstOrDefault ( emp => emp.EmployeeId == employeeId );
@@ -68,11 +53,26 @@ namespace LogTZ.BLL.Implemetations
 			}
 		}
 
-		public RepositoryActionsResult UpdateEmployee ( EmployeeEditModel employeeEditModel )
+		public (RepositoryActionsResult repositoryActionResult, int employeeId) CreateEmployee ( EmployeeEditModel employeeEditModel )
 		{
 			if ( employeeEditModel is null )
 			{
-				return RepositoryActionsResult.DadData;
+				return (RepositoryActionsResult.DadData, default);
+			}
+
+			var employeeModel = _mapper.Map<Employee> ( employeeEditModel );
+
+			_mainContext.Add ( employeeModel );
+			_mainContext.SaveChanges ( );
+
+			return (RepositoryActionsResult.Success, employeeModel.EmployeeId);
+		}
+
+		public (RepositoryActionsResult repositoryActionResult, EmployeeViewModel employeeViewModel) UpdateEmployee ( EmployeeEditModel employeeEditModel )
+		{
+			if ( employeeEditModel is null )
+			{
+				return (RepositoryActionsResult.DadData, null);
 			}
 
 			var employeeModel = _mapper.Map<Employee> ( employeeEditModel );
@@ -81,7 +81,7 @@ namespace LogTZ.BLL.Implemetations
 
 			if ( employeeInDb == default )
 			{
-				return RepositoryActionsResult.DadData;
+				return (RepositoryActionsResult.DadData, null);
 			}
 			else
 			{
@@ -90,7 +90,9 @@ namespace LogTZ.BLL.Implemetations
 
 				_mainContext.SaveChanges ( );
 
-				return RepositoryActionsResult.Success;
+				var empoyeeViewModel = _mapper.Map<EmployeeViewModel>(employeeInDb);
+
+				return (RepositoryActionsResult.Success,empoyeeViewModel);
 			}
 		}
 	}

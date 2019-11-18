@@ -16,15 +16,15 @@ namespace LogTZ.BLL.Interfaces
 		/// Создать сотрудника.
 		/// </summary>
 		/// <param name="employeeEditModel">Модель сотрудника.</param>
-		/// <returns>Результат добавления.</returns>
-		RepositoryActionsResult CreateEmployee ( EmployeeEditModel employeeEditModel);
+		/// <returns>Результат добавления и Id.</returns>
+		(RepositoryActionsResult repositoryActionResult, int employeeId) CreateEmployee ( EmployeeEditModel employeeEditModel);
 
 		/// <summary>
 		/// Обновить сотрудника.
 		/// </summary>
 		/// <param name="employeeEditModel">Модель сотрудника.</param>
-		/// <returns>Результат обновления.</returns>
-		RepositoryActionsResult UpdateEmployee ( EmployeeEditModel employeeEditModel );
+		/// <returns>Результат обновления и модель сотрудника.</returns>
+		(RepositoryActionsResult repositoryActionResult, EmployeeViewModel employeeViewModel) UpdateEmployee ( EmployeeEditModel employeeEditModel );
 
 		/// <summary>
 		/// Удалить сотрудника по Id.
