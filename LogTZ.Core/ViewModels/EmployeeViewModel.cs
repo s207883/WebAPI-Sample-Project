@@ -1,18 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 
-namespace LogTZ.DAL.Model
+namespace LogTZ.Core.ViewModels
 {
 	/// <summary>
-	/// Модель сотрудника.
+	/// Модель представления сотрудника.
 	/// </summary>
-	public class Customer
+	public class EmployeeViewModel
 	{
 		/// <summary>
 		/// ИД сотрудника.
 		/// </summary>
-		public int CustomerId { get; set; }
+		public int EmployeeId { get; set; }
 
 		/// <summary>
 		/// Имя сотрудника.
@@ -23,5 +22,10 @@ namespace LogTZ.DAL.Model
 		/// Дата рождения.
 		/// </summary>
 		public DateTime BirthDate { get; set; }
+
+		/// <summary>
+		/// Должности сотрудника.
+		/// </summary>
+		public IEnumerable<EmployeePositionViewModel> Positions { get; set; }
 	}
 }
