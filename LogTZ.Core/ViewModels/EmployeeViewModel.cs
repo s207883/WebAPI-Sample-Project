@@ -26,6 +26,6 @@ namespace LogTZ.Core.ViewModels
 		/// <summary>
 		/// Должности сотрудника.
 		/// </summary>
-		public List<EployeePositionViewModel> Positions { get; set; }
+		public IEnumerable<EployeePositionViewModel> Positions { get; set; }
 	}
 }

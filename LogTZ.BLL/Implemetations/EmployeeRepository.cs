@@ -5,6 +5,7 @@ using LogTZ.Core.Enums;
 using LogTZ.Core.ViewModels;
 using LogTZ.DAL;
 using LogTZ.DAL.Model;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace LogTZ.BLL.Implemetations
@@ -48,7 +49,11 @@ namespace LogTZ.BLL.Implemetations
 			}
 			else
 			{
-				var employeeViewModel = _mapper.Map<EmployeeViewModel> ( employeeModel );
+				var employeeViewModel = _mapper.Map<EmployeeViewModel>( employeeModel );
+				var employeePositions = _mainContext.EployeePositions.Where ( p => p.EmployeeId == employeeModel.EmployeeId ).ToList();
+
+				employeeViewModel.Positions = _mapper.Map<List<EployeePositionViewModel>>(employeePositions);
+
 				return (RepositoryActionsResult.Success, employeeViewModel);
 			}
 		}
@@ -90,9 +95,12 @@ namespace LogTZ.BLL.Implemetations
 
 				_mainContext.SaveChanges ( );
 
-				var empoyeeViewModel = _mapper.Map<EmployeeViewModel>(employeeInDb);
+				var employeeViewModel = _mapper.Map<EmployeeViewModel>(employeeInDb);
+				var employeePositions = _mainContext.EployeePositions.Where ( p => p.EmployeeId == employeeViewModel.EmployeeId ).ToList();
 
-				return (RepositoryActionsResult.Success,empoyeeViewModel);
+				employeeViewModel.Positions = _mapper.Map<List<EployeePositionViewModel>>( employeeViewModel );
+
+				return (RepositoryActionsResult.Success, employeeViewModel);
 			}
 		}
 	}
