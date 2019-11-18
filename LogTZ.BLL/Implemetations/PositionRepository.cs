@@ -24,21 +24,6 @@ namespace LogTZ.BLL.Implemetations
 			_mapper = mapper;
 		}
 
-		public RepositoryActionsResult CreatePosition ( PositionEditModel positionEditModel )
-		{
-			if ( positionEditModel is null )
-			{
-				return RepositoryActionsResult.DadData;
-			}
-
-			var positionModel = _mapper.Map<Employee>(positionEditModel);
-
-			_mainContext.Add ( positionModel ).State = EntityState.Added;
-			_mainContext.SaveChanges();
-
-			return RepositoryActionsResult.Success;
-		}
-
 		public RepositoryActionsResult DeletePositionById ( int positionId )
 		{
 			///TODO: Добавить проверку, что должность не занята.
@@ -73,28 +58,45 @@ namespace LogTZ.BLL.Implemetations
 			}
 		}
 
-		public RepositoryActionsResult UpdatePosition ( PositionEditModel positionEditModel )
+
+		public (RepositoryActionsResult repositoryActionsResult, int positionId) CreatePosition ( PositionEditModel positionEditModel )
 		{
 			if ( positionEditModel is null )
 			{
-				return RepositoryActionsResult.DadData;
+				return (RepositoryActionsResult.DadData, default);
 			}
 
-			var positionModel = _mapper.Map<Position>(positionEditModel);
+			var positionModel = _mapper.Map<Employee> ( positionEditModel );
+
+			_mainContext.Add ( positionModel );
+			_mainContext.SaveChanges ( );
+
+			return (RepositoryActionsResult.Success, positionModel.EmployeeId);
+		}
+
+		public (RepositoryActionsResult repositoryActionsResult, PositionViewModel positionViewModel) UpdatePosition ( PositionEditModel positionEditModel )
+		{
+			if ( positionEditModel is null )
+			{
+				return (RepositoryActionsResult.DadData, default);
+			}
+
+			var positionModel = _mapper.Map<Position> ( positionEditModel );
 			var positionInDb = _mainContext.Positions.FirstOrDefault ( pos => pos.PositionId == positionModel.PositionId );
 
 			if ( positionInDb == default )
 			{
-				return RepositoryActionsResult.DadData;
+				return (RepositoryActionsResult.DadData, default);
 			}
 			else
 			{
 				positionInDb.Name = positionModel.Name;
 				positionInDb.Grade = positionModel.Grade;
-				
-				_mainContext.SaveChanges();
 
-				return RepositoryActionsResult.Success;
+				_mainContext.SaveChanges ( );
+
+				var positionViewModel = _mapper.Map<PositionViewModel>(positionInDb);
+				return (RepositoryActionsResult.Success, positionViewModel);
 			}
 		}
 	}
