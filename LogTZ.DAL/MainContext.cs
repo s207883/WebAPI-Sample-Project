@@ -28,11 +28,6 @@ namespace LogTZ.DAL
 			Database.EnsureCreated ( );
 		}
 
-		protected override void OnConfiguring ( DbContextOptionsBuilder optionsBuilder )
-		{
-			optionsBuilder.UseSqlServer ( @"Server=(localdb)\mssqllocaldb;Database=LogroconDB;Integrated Security=true;" );
-			base.OnConfiguring ( optionsBuilder );
-		}
 		/// <summary>
 		/// Реализация FluentAPI.
 		/// </summary>
