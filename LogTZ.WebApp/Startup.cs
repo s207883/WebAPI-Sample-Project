@@ -25,6 +25,14 @@ namespace LogTZ.WebApp
 		public void ConfigureServices ( IServiceCollection services )
 		{
 			services.AddControllers ( );
+
+			services.AddSwaggerGen(sg =>
+			{
+				sg.SwaggerDoc ( "v1", new Microsoft.OpenApi.Models.OpenApiInfo {
+					Version = "v1",
+					Title = "WEB API",
+				} );
+			} );
 		}
 
 		// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -38,6 +46,12 @@ namespace LogTZ.WebApp
 			app.UseRouting ( );
 
 			app.UseAuthorization ( );
+
+			app.UseSwagger();
+			app.UseSwaggerUI ( c =>
+			{
+				c.SwaggerEndpoint ( "/swagger/v1/swagger.json", "My API V1" );
+			} );
 
 			app.UseEndpoints ( endpoints =>
 			  {
