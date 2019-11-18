@@ -23,7 +23,7 @@ namespace LogTZ.DAL
 		/// <summary>
 		/// Основной контекст приложения.
 		/// </summary>
-		public MainContext ( )
+		public MainContext (DbContextOptions<MainContext> options):base(options)
 		{
 			Database.EnsureCreated ( );
 		}

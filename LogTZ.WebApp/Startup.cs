@@ -2,9 +2,11 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
 using LogTZ.BLL;
 using LogTZ.BLL.Implemetations;
 using LogTZ.BLL.Interfaces;
+using LogTZ.Core.AutomapperProfiles;
 using LogTZ.DAL;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -39,7 +41,17 @@ namespace LogTZ.WebApp
 			services.AddScoped<IEmployeeRepository, EmployeeRepository> ( );
 			services.AddScoped<IEployeePositionRepository, EployeePositionRepository> ( );
 
-			services.AddSingleton<RepoManager> ( );
+			services.AddScoped<RepoManager> ( );
+
+			var mappingConfig = new MapperConfiguration ( mc =>
+			{
+				mc.AddProfile ( new PositionProfile ( ) );
+				mc.AddProfile ( new EmployeeProfile ( ) ); 
+			} );
+
+			var mapper = mappingConfig.CreateMapper ( );
+
+			services.AddSingleton ( mapper );
 
 			services.AddSwaggerGen(sg =>
 			{
@@ -56,7 +68,7 @@ namespace LogTZ.WebApp
 			{
 				app.UseDeveloperExceptionPage ( );
 			}
-
+			
 			app.UseRouting ( );
 
 			app.UseAuthorization ( );
