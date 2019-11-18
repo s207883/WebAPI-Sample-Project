@@ -30,10 +30,10 @@ namespace LogTZ.BLL.Implemetations
 			}
 			else
 			{
-				var employeePosition = _mainContext.EployeePositions
+				var employeePosition = _mainContext.EmployeePositions
 					.FirstOrDefault ( empPos => empPos.EmployeeId == employeeId && empPos.PositionId == positionId );
 
-				_mainContext.EployeePositions.Remove ( employeePosition );
+				_mainContext.EmployeePositions.Remove ( employeePosition );
 				_mainContext.SaveChanges();
 
 				return RepositoryActionsResult.Success;
@@ -51,13 +51,13 @@ namespace LogTZ.BLL.Implemetations
 			}
 			else
 			{
-				var employeePosition = new EployeePosition
+				var employeePosition = new EmployeePosition
 				{
 					EmployeeId = employeeId,
 					PositionId = positionId
 				};
 
-				_mainContext.EployeePositions.Add ( employeePosition );
+				_mainContext.EmployeePositions.Add ( employeePosition );
 				_mainContext.SaveChanges ( );
 
 				return RepositoryActionsResult.Success;

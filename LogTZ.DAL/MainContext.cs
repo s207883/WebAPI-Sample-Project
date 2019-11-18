@@ -19,7 +19,7 @@ namespace LogTZ.DAL
 		/// <summary>
 		/// Должности сотрудников.
 		/// </summary>
-		public DbSet<EployeePosition> EployeePositions { get; set; }
+		public DbSet<EmployeePosition> EmployeePositions { get; set; }
 
 		/// <summary>
 		/// Основной контекст приложения.
@@ -35,17 +35,17 @@ namespace LogTZ.DAL
 		protected override void OnModelCreating ( ModelBuilder modelBuilder )
 		{
 			#region EployeePosition Table
-			modelBuilder.Entity<EployeePosition> ( )
+			modelBuilder.Entity<EmployeePosition> ( )
 				.HasKey ( key => new { key.PositionId, key.EmployeeId } );
 
 
-			modelBuilder.Entity<EployeePosition> ( )
+			modelBuilder.Entity<EmployeePosition> ( )
 				.HasOne ( emp => emp.Employee )
 				.WithMany ( ep => ep.EployeePositions )
 				.HasForeignKey ( fk => fk.EmployeeId );
 
 
-			modelBuilder.Entity<EployeePosition> ( )
+			modelBuilder.Entity<EmployeePosition> ( )
 				.HasOne ( emp => emp.Position )
 				.WithMany ( ep => ep.EployeePositions )
 				.HasForeignKey ( fk => fk.PositionId );
@@ -80,18 +80,18 @@ namespace LogTZ.DAL
 				new Position { PositionId = 10, Name = Guid.NewGuid ( ).ToString ( ), Grade = 10 }
 				);
 
-			modelBuilder.Entity<EployeePosition> ( )
+			modelBuilder.Entity<EmployeePosition> ( )
 				.HasData (
-				new EployeePosition { PositionId = 1, EmployeeId = 1 },
-				new EployeePosition { PositionId = 2, EmployeeId = 1 },
-				new EployeePosition { PositionId = 3, EmployeeId = 1 },
-				new EployeePosition { PositionId = 4, EmployeeId = 1 },
-				new EployeePosition { PositionId = 5, EmployeeId = 1 },
-				new EployeePosition { PositionId = 6, EmployeeId = 2 },
-				new EployeePosition { PositionId = 7, EmployeeId = 3 },
-				new EployeePosition { PositionId = 8, EmployeeId = 4 },
-				new EployeePosition { PositionId = 9, EmployeeId = 5 },
-				new EployeePosition { PositionId = 10, EmployeeId = 6 }
+				new EmployeePosition { PositionId = 1, EmployeeId = 1 },
+				new EmployeePosition { PositionId = 2, EmployeeId = 1 },
+				new EmployeePosition { PositionId = 3, EmployeeId = 1 },
+				new EmployeePosition { PositionId = 4, EmployeeId = 1 },
+				new EmployeePosition { PositionId = 5, EmployeeId = 1 },
+				new EmployeePosition { PositionId = 6, EmployeeId = 2 },
+				new EmployeePosition { PositionId = 7, EmployeeId = 3 },
+				new EmployeePosition { PositionId = 8, EmployeeId = 4 },
+				new EmployeePosition { PositionId = 9, EmployeeId = 5 },
+				new EmployeePosition { PositionId = 10, EmployeeId = 6 }
 				);
 			#endregion
 

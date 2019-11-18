@@ -23,7 +23,7 @@ namespace LogTZ.DAL.Model
 		public int Grade { get; set; }
 
 		#region Навигационные свойства
-		public IEnumerable<EployeePosition> EployeePositions { get; set; }
+		public IEnumerable<EmployeePosition> EployeePositions { get; set; }
 		#endregion
 	}
 }

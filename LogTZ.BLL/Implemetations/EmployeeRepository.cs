@@ -50,9 +50,9 @@ namespace LogTZ.BLL.Implemetations
 			else
 			{
 				var employeeViewModel = _mapper.Map<EmployeeViewModel>( employeeModel );
-				var employeePositions = _mainContext.EployeePositions.Where ( p => p.EmployeeId == employeeModel.EmployeeId ).ToList();
+				var employeePositions = _mainContext.EmployeePositions.Where ( p => p.EmployeeId == employeeModel.EmployeeId ).ToList();
 
-				employeeViewModel.Positions = _mapper.Map<List<EployeePositionViewModel>>(employeePositions);
+				employeeViewModel.Positions = _mapper.Map<List<EmployeePositionViewModel>>(employeePositions);
 
 				return (RepositoryActionsResult.Success, employeeViewModel);
 			}
@@ -96,9 +96,9 @@ namespace LogTZ.BLL.Implemetations
 				_mainContext.SaveChanges ( );
 
 				var employeeViewModel = _mapper.Map<EmployeeViewModel>(employeeInDb);
-				var employeePositions = _mainContext.EployeePositions.Where ( p => p.EmployeeId == employeeViewModel.EmployeeId ).ToList();
+				var employeePositions = _mainContext.EmployeePositions.Where ( p => p.EmployeeId == employeeViewModel.EmployeeId ).ToList();
 
-				employeeViewModel.Positions = _mapper.Map<List<EployeePositionViewModel>>( employeeViewModel );
+				employeeViewModel.Positions = _mapper.Map<List<EmployeePositionViewModel>>( employeeViewModel );
 
 				return (RepositoryActionsResult.Success, employeeViewModel);
 			}

@@ -3,7 +3,7 @@
 	/// <summary>
 	/// Модель представления должности сотрудника.
 	/// </summary>
-	public class EployeePositionViewModel
+	public class EmployeePositionViewModel
 	{
 		/// <summary>
 		/// ИД сотрудника.

@@ -24,7 +24,7 @@ namespace LogTZ.DAL.Model
 		public DateTime BirthDate { get; set; }
 
 		#region Навигационные свойства
-		public IEnumerable<EployeePosition> EployeePositions { get; set; }
+		public IEnumerable<EmployeePosition> EployeePositions { get; set; }
 		#endregion
 	}
 }
