@@ -25,13 +25,14 @@ namespace LogTZ.BLL.Implemetations
 		{
 			var employeeInDb = _mainContext.Employees.FirstOrDefault ( emp => emp.EmployeeId == employeeId );
 
-			if ( employeeInDb == default )
+			var employeePosition = _mainContext.EmployeePositions.FirstOrDefault(emp => emp.EmployeeId == employeeId);
+
+			if ( employeeInDb == default || employeePosition != default)
 			{
 				return RepositoryActionsResult.DadData;
 			}
 			else
 			{
-				//TODO: Добавить проверку.
 				_mainContext.Employees.Remove ( employeeInDb );
 				_mainContext.SaveChanges ( );
 
