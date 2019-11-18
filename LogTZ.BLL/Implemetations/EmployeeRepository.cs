@@ -64,6 +64,8 @@ namespace LogTZ.BLL.Implemetations
 
 			var employeeModel = _mapper.Map<Employee> ( employeeEditModel );
 
+			employeeModel.EmployeeId = default;
+
 			_mainContext.Add ( employeeModel );
 			_mainContext.SaveChanges ( );
 

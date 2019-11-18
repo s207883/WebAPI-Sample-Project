@@ -11,6 +11,9 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace LogTZ.WebApp.Controllers
 {
+	/// <summary>
+	/// Контроллер сотрудников.
+	/// </summary>
 	[Route ( "api/[controller]" )]
 	[ApiController]
 	public class EmployeeController : ControllerBase
@@ -22,9 +25,13 @@ namespace LogTZ.WebApp.Controllers
 			_repoManager = repoManager;
 		}
 
-		// GET: api/Employee/5
-		[HttpGet]
-		public ActionResult<EmployeeViewModel> GetEmployee ([FromQuery]int employeeId)
+		/// <summary>
+		/// Получить сотрудника.
+		/// </summary>
+		/// <param name="employeeId">Id сотрудника.</param>
+		/// <returns>Модель представления сотрудника.</returns>
+		[HttpGet( "{employeeId}" )]
+		public ActionResult<EmployeeViewModel> GetEmployee (int employeeId)
 		{
 			var employee = _repoManager.EmployeeRepository.GetEmployeeById ( employeeId );
 			if ( employee.repositoryActionResult == RepositoryActionsResult.Success )
@@ -37,9 +44,12 @@ namespace LogTZ.WebApp.Controllers
 			}
 		}
 
-		// DELETE: api/Employee/5
-		[HttpDelete]
-		public ActionResult DeleteEmployee ([FromQuery] int employeeId)
+		/// <summary>
+		/// Удалить сотрудника.
+		/// </summary>
+		/// <param name="employeeId">Id сотрудника.</param>
+		[HttpDelete ( "{employeeId}" )]
+		public ActionResult DeleteEmployee (int employeeId)
 		{
 			var result = _repoManager.EmployeeRepository.DeleteEmployeeById ( employeeId );
 			if ( result == RepositoryActionsResult.Success )
@@ -52,35 +62,55 @@ namespace LogTZ.WebApp.Controllers
 			}
 		}
 
-		// POST: api/Employee
+		/// <summary>
+		/// Добавить сотрудника.
+		/// </summary>
+		/// <param name="employeeEditModel">Модель сотрудника.</param>
 		[HttpPost]
-		public ActionResult AddEmployee ([FromQuery] EmployeeEditModel employeeEditModel)
+		public ActionResult AddEmployee (EmployeeEditModel employeeEditModel)
 		{
-			var employee = _repoManager.EmployeeRepository.CreateEmployee(employeeEditModel);
-
-			if ( employee.repositoryActionResult == RepositoryActionsResult.Success )
+			if ( ModelState.IsValid )
 			{
-				return Ok(new { Id = employee.employeeId});
+				var employee = _repoManager.EmployeeRepository.CreateEmployee ( employeeEditModel );
+
+				if ( employee.repositoryActionResult == RepositoryActionsResult.Success )
+				{
+					return Ok ( new { Id = employee.employeeId } );
+				}
+				else
+				{
+					return BadRequest ( employee.repositoryActionResult );
+				}
 			}
 			else
 			{
-				return BadRequest(employee.repositoryActionResult);
+				return BadRequest(employeeEditModel);
 			}
 		}
 
-		// PUT: api/Employee
+		/// <summary>
+		/// Изменить сотрудника.
+		/// </summary>
+		/// <param name="employeeEditModel">Модель сотрудника.</param>
 		[HttpPut]
-		public ActionResult<EmployeeViewModel> UpdateEmployee ([FromQuery] EmployeeEditModel employeeEditModel)
+		public ActionResult<EmployeeViewModel> UpdateEmployee (EmployeeEditModel employeeEditModel)
 		{
-			var result = _repoManager.EmployeeRepository.UpdateEmployee(employeeEditModel);
-
-			if ( result.repositoryActionResult == RepositoryActionsResult.Success )
+			if ( ModelState.IsValid )
 			{
-				return Ok(result.employeeViewModel);
+				var result = _repoManager.EmployeeRepository.UpdateEmployee ( employeeEditModel );
+
+				if ( result.repositoryActionResult == RepositoryActionsResult.Success )
+				{
+					return Ok ( result.employeeViewModel );
+				}
+				else
+				{
+					return BadRequest ( result.repositoryActionResult );
+				}
 			}
 			else
 			{
-				return BadRequest(result.repositoryActionResult);
+				return BadRequest(employeeEditModel);
 			}
 		}
 

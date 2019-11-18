@@ -9,11 +9,13 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace LogTZ.WebApp.Controllers
 {
+	/// <summary>
+	/// Контроллер должностей сотрудников.
+	/// </summary>
 	[Route ( "api/[controller]" )]
 	[ApiController]
 	public class EmployeePositionController : ControllerBase
 	{
-		//TODO: Документация.
 		private readonly RepoManager _repoManager;
 
 		public EmployeePositionController (RepoManager repoManager)
@@ -21,7 +23,12 @@ namespace LogTZ.WebApp.Controllers
 			_repoManager = repoManager;
 		}
 
-		[HttpPost]
+		/// <summary>
+		/// Добавить сотруднику должность.
+		/// </summary>
+		/// <param name="positionId">Id должности.</param>
+		/// <param name="employeeId">Id сотрудника.</param>
+		[HttpPost ("{positionId}, {employeeId}" )]
 		public ActionResult SetPositionToEmployee (int positionId, int employeeId)
 		{
 			var result = _repoManager.EployeePositionRepository.SetPositionToEmployee(positionId,employeeId);
@@ -36,7 +43,12 @@ namespace LogTZ.WebApp.Controllers
 			}
 		}
 
-		[HttpDelete]
+		/// <summary>
+		/// Снимает сотрудника с должности.
+		/// </summary>
+		/// <param name="positionId">Id должности.</param>
+		/// <param name="employeeId">Id сотрудника.</param>
+		[HttpDelete ("{positionId}, {employeeId}" )]
 		public ActionResult RemovePositionFromEmployee (int positionId, int employeeId)
 		{
 			var result = _repoManager.EployeePositionRepository.RemovePositionFromEmployee ( positionId, employeeId );

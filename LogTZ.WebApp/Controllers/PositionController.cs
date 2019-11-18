@@ -11,6 +11,9 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace LogTZ.WebApp.Controllers
 {
+	/// <summary>
+	/// Контроллер должностей.
+	/// </summary>
 	[Route ( "api/[controller]" )]
 	[ApiController]
 	public class PositionController : ControllerBase
@@ -22,23 +25,39 @@ namespace LogTZ.WebApp.Controllers
 			_repoManager = repoManager;
 		}
 
+		/// <summary>
+		/// Добавить должность.
+		/// </summary>
+		/// <param name="positionEditModel">Модель должности.</param>
+		/// <returns>Id должности.</returns>
 		[HttpPost]
-		public ActionResult AddPosition (PositionEditModel positionEditModel)
+		public ActionResult<int> AddPosition (PositionEditModel positionEditModel)
 		{
-			var result = _repoManager.PositionRepository.CreatePosition(positionEditModel);
-
-			if ( result.repositoryActionsResult == RepositoryActionsResult.Success )
+			if ( ModelState.IsValid )
 			{
-				return Ok(result.positionId);
+				var result = _repoManager.PositionRepository.CreatePosition ( positionEditModel );
+
+				if ( result.repositoryActionsResult == RepositoryActionsResult.Success )
+				{
+					return Ok ( result.positionId );
+				}
+				else
+				{
+					return BadRequest ( result.repositoryActionsResult );
+				}
 			}
 			else
 			{
-				return BadRequest(result.repositoryActionsResult);
+				return BadRequest(positionEditModel);
 			}
 		}
 
-		// GET: api/Position/5
-		[HttpGet]
+		/// <summary>
+		/// Получить должность.
+		/// </summary>
+		/// <param name="positionId">Id должности.</param>
+		/// <returns>Модель должности.</returns>
+		[HttpGet( "{positionId}")]
 		public ActionResult<PositionViewModel> GetPosition (int positionId)
 		{
 			var result = _repoManager.PositionRepository.GetPositionById(positionId);
@@ -53,24 +72,38 @@ namespace LogTZ.WebApp.Controllers
 			}
 		}
 
-		// PUT: api/Position
+		/// <summary>
+		/// Обновить должность.
+		/// </summary>
+		/// <param name="positionEditModel">Модель должности.</param>
+		/// <returns>Обновленную модель должности.</returns>
 		[HttpPut]
 		public ActionResult<PositionViewModel> UpdatePosition (PositionEditModel positionEditModel)
 		{
-			var result = _repoManager.PositionRepository.UpdatePosition(positionEditModel);
-
-			if ( result.repositoryActionsResult == RepositoryActionsResult.Success )
+			if ( ModelState.IsValid )
 			{
-				return Ok(result.positionViewModel);
+				var result = _repoManager.PositionRepository.UpdatePosition ( positionEditModel );
+
+				if ( result.repositoryActionsResult == RepositoryActionsResult.Success )
+				{
+					return Ok ( result.positionViewModel );
+				}
+				else
+				{
+					return BadRequest ( result.repositoryActionsResult );
+				}
 			}
 			else
 			{
-				return BadRequest(result.repositoryActionsResult);
+				return BadRequest(positionEditModel);
 			}
 		}
 
-		// DELETE: api/Position/5
-		[HttpDelete]
+		/// <summary>
+		/// Удалить должность.
+		/// </summary>
+		/// <param name="positionId">Id должности.</param>
+		[HttpDelete ( "{positionId}" )]
 		public ActionResult DeletePosition (int positionId)
 		{
 			var result = _repoManager.PositionRepository.DeletePositionById(positionId);

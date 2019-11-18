@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Threading.Tasks;
 using AutoMapper;
 using LogTZ.BLL;
@@ -60,6 +62,9 @@ namespace LogTZ.WebApp
 					Version = "v1",
 					Title = "Web API",
 				} );
+				var xmlFile = $"{Assembly.GetExecutingAssembly ( ).GetName ( ).Name}.xml";
+				var xmlPath = Path.Combine ( AppContext.BaseDirectory, xmlFile );
+				sg.IncludeXmlComments ( xmlPath );
 			} );
 		}
 

@@ -1,4 +1,6 @@
-﻿namespace LogTZ.Core.EditModels
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace LogTZ.Core.EditModels
 {
 	/// <summary>
 	/// Модель представления должности сотрудника.
@@ -6,13 +8,15 @@
 	public class EmployeePositionEditModel
 	{
 		/// <summary>
-		/// ИД сотрудника.
+		/// Id сотрудника.
 		/// </summary>
+		[Required ( ErrorMessage = "Идентификатор сотрудника не установлен" )]
 		public int EmployeeId { get; set; }
 
 		/// <summary>
-		/// Должность сотрудника.
+		/// Id должности.
 		/// </summary>
+		[Required ( ErrorMessage = "Идентификатор долности не установлен" )]
 		public int PositionId { get; set; }
 	}
 }

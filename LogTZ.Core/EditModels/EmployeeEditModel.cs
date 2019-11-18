@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Text;
 
 namespace LogTZ.Core.EditModels
@@ -14,11 +15,13 @@ namespace LogTZ.Core.EditModels
 		/// <summary>
 		/// Имя сотрудника.
 		/// </summary>
+		[Required ( ErrorMessage = "Требуется имя" )]
 		public string Name { get; set; }
 
 		/// <summary>
 		/// Дата рождения.
 		/// </summary>
+		[Required ( ErrorMessage = "Требудется дата рождения" )]
 		public DateTime BirthDate { get; set; }
 	}
 }
