@@ -46,7 +46,8 @@ namespace LogTZ.WebApp
 			var mappingConfig = new MapperConfiguration ( mc =>
 			{
 				mc.AddProfile ( new PositionProfile ( ) );
-				mc.AddProfile ( new EmployeeProfile ( ) ); 
+				mc.AddProfile ( new EmployeeProfile ( ) );
+				mc.AddProfile ( new EmployeePositionProfile ( ) );
 			} );
 
 			var mapper = mappingConfig.CreateMapper ( );

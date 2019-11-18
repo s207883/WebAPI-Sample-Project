@@ -49,11 +49,7 @@ namespace LogTZ.BLL.Implemetations
 			}
 			else
 			{
-				var employeeViewModel = _mapper.Map<EmployeeViewModel>( employeeModel );
-				var employeePositions = _mainContext.EmployeePositions.Where ( p => p.EmployeeId == employeeModel.EmployeeId ).ToList();
-
-				employeeViewModel.Positions = _mapper.Map<List<EmployeePositionViewModel>>(employeePositions);
-
+				EmployeeViewModel employeeViewModel = GetEmployeeViewModel ( employeeModel );
 				return (RepositoryActionsResult.Success, employeeViewModel);
 			}
 		}
@@ -95,13 +91,28 @@ namespace LogTZ.BLL.Implemetations
 
 				_mainContext.SaveChanges ( );
 
-				var employeeViewModel = _mapper.Map<EmployeeViewModel>(employeeInDb);
-				var employeePositions = _mainContext.EmployeePositions.Where ( p => p.EmployeeId == employeeViewModel.EmployeeId ).ToList();
-
-				employeeViewModel.Positions = _mapper.Map<List<EmployeePositionViewModel>>( employeeViewModel );
+				EmployeeViewModel employeeViewModel = GetEmployeeViewModel ( employeeInDb );
 
 				return (RepositoryActionsResult.Success, employeeViewModel);
 			}
+		}
+
+		private EmployeeViewModel GetEmployeeViewModel ( Employee employeeInDb )
+		{
+			var employeeViewModel = _mapper.Map<EmployeeViewModel> ( employeeInDb );
+			var employeePositions = _mainContext.EmployeePositions.Where ( p => p.EmployeeId == employeeViewModel.EmployeeId ).ToList ( );
+
+			var employeePositionsViewModel = _mapper.Map<IEnumerable<EmployeePositionViewModel>> ( employeePositions );
+
+			foreach ( var emPos in employeePositionsViewModel )
+			{
+				var position = _mainContext.Positions.FirstOrDefault ( pos => pos.PositionId == emPos.PositionId );
+				emPos.Name = position.Name;
+				emPos.Grade = position.Grade;
+			}
+
+			employeeViewModel.Positions = employeePositionsViewModel;
+			return employeeViewModel;
 		}
 	}
 }
