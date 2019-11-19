@@ -29,8 +29,10 @@ namespace LogTZ.WebApp.Controllers
 		/// Получить сотрудника.
 		/// </summary>
 		/// <param name="employeeId">Id сотрудника.</param>
+		/// <response code="200">Возвращает сотрудника.</response>
+		/// <response code="400">Если не удалось найти сотрудника.</response>   
 		/// <returns>Модель представления сотрудника.</returns>
-		[HttpGet( "{employeeId}" )]
+		[HttpGet ( "{employeeId}" )]
 		public ActionResult<EmployeeViewModel> GetEmployee (int employeeId)
 		{
 			var employee = _repoManager.EmployeeRepository.GetEmployeeById ( employeeId );
@@ -40,13 +42,15 @@ namespace LogTZ.WebApp.Controllers
 			}
 			else
 			{
-				return BadRequest ( employee.repositoryActionResult );
+				return BadRequest ();
 			}
 		}
 
 		/// <summary>
 		/// Удалить сотрудника.
 		/// </summary>
+		/// <response code="200">При успешном удалении сотрудника.</response>
+		/// <response code="400">Если не удалось удалить сотрудника.</response>   
 		/// <param name="employeeId">Id сотрудника.</param>
 		[HttpDelete ( "{employeeId}" )]
 		public ActionResult DeleteEmployee (int employeeId)
@@ -58,13 +62,15 @@ namespace LogTZ.WebApp.Controllers
 			}
 			else
 			{
-				return BadRequest(result);
+				return BadRequest();
 			}
 		}
 
 		/// <summary>
 		/// Добавить сотрудника.
 		/// </summary>
+		/// <response code="201">Возвращает Id нового сотрудника.</response>
+		/// <response code="400">Если не удалось добавить сотрудника.</response>   
 		/// <param name="employeeEditModel">Модель сотрудника.</param>
 		[HttpPost]
 		public ActionResult AddEmployee (EmployeeEditModel employeeEditModel)
@@ -75,11 +81,11 @@ namespace LogTZ.WebApp.Controllers
 
 				if ( employee.repositoryActionResult == RepositoryActionsResult.Success )
 				{
-					return Ok ( new { Id = employee.employeeId } );
+					return CreatedAtAction (nameof(AddEmployee), new { Id = employee.employeeId } );
 				}
 				else
 				{
-					return BadRequest ( employee.repositoryActionResult );
+					return BadRequest ();
 				}
 			}
 			else
@@ -91,6 +97,8 @@ namespace LogTZ.WebApp.Controllers
 		/// <summary>
 		/// Изменить сотрудника.
 		/// </summary>
+		/// <response code="200">Возвращает модель сотрудника.</response>
+		/// <response code="400">Если не удалось обновить сотрудника.</response>   
 		/// <param name="employeeEditModel">Модель сотрудника.</param>
 		[HttpPut]
 		public ActionResult<EmployeeViewModel> UpdateEmployee (EmployeeEditModel employeeEditModel)
@@ -105,7 +113,7 @@ namespace LogTZ.WebApp.Controllers
 				}
 				else
 				{
-					return BadRequest ( result.repositoryActionResult );
+					return BadRequest ();
 				}
 			}
 			else

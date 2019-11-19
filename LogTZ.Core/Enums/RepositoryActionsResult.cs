@@ -4,10 +4,19 @@ using System.Text;
 
 namespace LogTZ.Core.Enums
 {
+	/// <summary>
+	/// Результат работы репозитория.
+	/// </summary>
 	public enum RepositoryActionsResult
 	{
+		/// <summary>
+		/// Успех.
+		/// </summary>
 		Success,
-		Fail,
-		DadData,
+
+		/// <summary>
+		/// Неправильный запрос.
+		/// </summary>
+		BadRequest
 	}
 }

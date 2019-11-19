@@ -29,6 +29,8 @@ namespace LogTZ.WebApp.Controllers
 		/// Добавить должность.
 		/// </summary>
 		/// <param name="positionEditModel">Модель должности.</param>
+		/// <response code="201">Возвращает Id новой должности.</response>
+		/// <response code="400">Если не удалось добавить должность.</response>   
 		/// <returns>Id должности.</returns>
 		[HttpPost]
 		public ActionResult<int> AddPosition (PositionEditModel positionEditModel)
@@ -39,11 +41,11 @@ namespace LogTZ.WebApp.Controllers
 
 				if ( result.repositoryActionsResult == RepositoryActionsResult.Success )
 				{
-					return Ok ( result.positionId );
+					return CreatedAtAction ( nameof ( AddPosition ),new { Id = result.positionId } );
 				}
 				else
 				{
-					return BadRequest ( result.repositoryActionsResult );
+					return BadRequest ();
 				}
 			}
 			else
@@ -56,8 +58,10 @@ namespace LogTZ.WebApp.Controllers
 		/// Получить должность.
 		/// </summary>
 		/// <param name="positionId">Id должности.</param>
+		/// <response code="200">Возвращает должность.</response>
+		/// <response code="400">Если не удалось найти должность.</response> 
 		/// <returns>Модель должности.</returns>
-		[HttpGet( "{positionId}")]
+		[HttpGet ( "{positionId}")]
 		public ActionResult<PositionViewModel> GetPosition (int positionId)
 		{
 			var result = _repoManager.PositionRepository.GetPositionById(positionId);
@@ -68,7 +72,7 @@ namespace LogTZ.WebApp.Controllers
 			}
 			else
 			{
-				return BadRequest(result.repositoryActionsResult);
+				return BadRequest();
 			}
 		}
 
@@ -76,6 +80,8 @@ namespace LogTZ.WebApp.Controllers
 		/// Обновить должность.
 		/// </summary>
 		/// <param name="positionEditModel">Модель должности.</param>
+		/// <response code="200">Возвращает должность.</response>
+		/// <response code="400">Если не удалось обновить должность.</response> 
 		/// <returns>Обновленную модель должности.</returns>
 		[HttpPut]
 		public ActionResult<PositionViewModel> UpdatePosition (PositionEditModel positionEditModel)
@@ -90,7 +96,7 @@ namespace LogTZ.WebApp.Controllers
 				}
 				else
 				{
-					return BadRequest ( result.repositoryActionsResult );
+					return BadRequest ();
 				}
 			}
 			else
@@ -102,6 +108,8 @@ namespace LogTZ.WebApp.Controllers
 		/// <summary>
 		/// Удалить должность.
 		/// </summary>
+		/// <response code="200">Если удалось удалить должность.</response>
+		/// <response code="400">Если не удалось удалить должность.</response> 
 		/// <param name="positionId">Id должности.</param>
 		[HttpDelete ( "{positionId}" )]
 		public ActionResult DeletePosition (int positionId)
@@ -114,7 +122,7 @@ namespace LogTZ.WebApp.Controllers
 			}
 			else
 			{
-				return BadRequest(result);
+				return BadRequest();
 			}
 		}
 

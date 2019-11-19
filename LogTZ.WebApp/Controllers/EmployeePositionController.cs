@@ -28,6 +28,8 @@ namespace LogTZ.WebApp.Controllers
 		/// </summary>
 		/// <param name="positionId">Id должности.</param>
 		/// <param name="employeeId">Id сотрудника.</param>
+		/// <response code="201">При добавлении должности сотруднику.</response>
+		/// <response code="400">Если не удалось добавить должность сотруднику.</response>   
 		[HttpPost ("{positionId}, {employeeId}" )]
 		public ActionResult SetPositionToEmployee (int positionId, int employeeId)
 		{
@@ -35,11 +37,11 @@ namespace LogTZ.WebApp.Controllers
 
 			if ( result == RepositoryActionsResult.Success )
 			{
-				return Ok();
+				return CreatedAtAction(nameof(SetPositionToEmployee), new { PositionId = positionId, EmployeeId = employeeId});
 			}
 			else
 			{
-				return BadRequest(result);
+				return BadRequest();
 			}
 		}
 
@@ -48,6 +50,8 @@ namespace LogTZ.WebApp.Controllers
 		/// </summary>
 		/// <param name="positionId">Id должности.</param>
 		/// <param name="employeeId">Id сотрудника.</param>
+		/// <response code="200">При снятии сотрудника с должности.</response>
+		/// <response code="400">Если не удалось снять сотрудника с должности.</response>   
 		[HttpDelete ("{positionId}, {employeeId}" )]
 		public ActionResult RemovePositionFromEmployee (int positionId, int employeeId)
 		{
@@ -59,7 +63,7 @@ namespace LogTZ.WebApp.Controllers
 			}
 			else
 			{
-				return BadRequest ( result );
+				return BadRequest ();
 			}
 		}
 

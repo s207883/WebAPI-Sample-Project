@@ -26,7 +26,7 @@ namespace LogTZ.BLL.Implemetations
 
 			if ( position == default || employee == default )
 			{
-				return RepositoryActionsResult.DadData;
+				return RepositoryActionsResult.BadRequest;
 			}
 			else
 			{
@@ -42,7 +42,7 @@ namespace LogTZ.BLL.Implemetations
 				}
 				else
 				{
-					return RepositoryActionsResult.DadData;
+					return RepositoryActionsResult.BadRequest;
 				}
 
 			}
@@ -58,7 +58,7 @@ namespace LogTZ.BLL.Implemetations
 
 			if ( position == default || employee == default || employeePositionInDb != default )
 			{
-				return RepositoryActionsResult.DadData;
+				return RepositoryActionsResult.BadRequest;
 			}
 			else
 			{

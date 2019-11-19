@@ -29,7 +29,7 @@ namespace LogTZ.BLL.Implemetations
 
 			if ( employeeInDb == default || employeePosition != default)
 			{
-				return RepositoryActionsResult.DadData;
+				return RepositoryActionsResult.BadRequest;
 			}
 			else
 			{
@@ -46,7 +46,7 @@ namespace LogTZ.BLL.Implemetations
 
 			if ( employeeModel == default )
 			{
-				return (RepositoryActionsResult.DadData, default);
+				return (RepositoryActionsResult.BadRequest, default);
 			}
 			else
 			{
@@ -59,7 +59,7 @@ namespace LogTZ.BLL.Implemetations
 		{
 			if ( employeeEditModel is null )
 			{
-				return (RepositoryActionsResult.DadData, default);
+				return (RepositoryActionsResult.BadRequest, default);
 			}
 
 			var employeeModel = _mapper.Map<Employee> ( employeeEditModel );
@@ -76,7 +76,7 @@ namespace LogTZ.BLL.Implemetations
 		{
 			if ( employeeEditModel is null )
 			{
-				return (RepositoryActionsResult.DadData, null);
+				return (RepositoryActionsResult.BadRequest, null);
 			}
 
 			var employeeModel = _mapper.Map<Employee> ( employeeEditModel );
@@ -85,7 +85,7 @@ namespace LogTZ.BLL.Implemetations
 
 			if ( employeeInDb == default )
 			{
-				return (RepositoryActionsResult.DadData, null);
+				return (RepositoryActionsResult.BadRequest, null);
 			}
 			else
 			{
