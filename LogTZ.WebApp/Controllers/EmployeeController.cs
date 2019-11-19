@@ -11,6 +11,9 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace LogTZ.WebApp.Controllers
 {
+	/// <summary>
+	/// Контроллер сотрудников.
+	/// </summary>
 	[Route ( "api/[controller]" )]
 	[ApiController]
 	public class EmployeeController : ControllerBase
@@ -22,9 +25,15 @@ namespace LogTZ.WebApp.Controllers
 			_repoManager = repoManager;
 		}
 
-		// GET: api/Employee/5
-		[HttpGet]
-		public ActionResult<EmployeeViewModel> GetEmployee ([FromQuery]int employeeId)
+		/// <summary>
+		/// Получить сотрудника.
+		/// </summary>
+		/// <param name="employeeId">Id сотрудника.</param>
+		/// <response code="200">Возвращает сотрудника.</response>
+		/// <response code="400">Если не удалось найти сотрудника.</response>   
+		/// <returns>Модель представления сотрудника.</returns>
+		[HttpGet ( "{employeeId}" )]
+		public ActionResult<EmployeeViewModel> GetEmployee (int employeeId)
 		{
 			var employee = _repoManager.EmployeeRepository.GetEmployeeById ( employeeId );
 			if ( employee.repositoryActionResult == RepositoryActionsResult.Success )
@@ -33,13 +42,18 @@ namespace LogTZ.WebApp.Controllers
 			}
 			else
 			{
-				return BadRequest ( employee.repositoryActionResult );
+				return BadRequest ();
 			}
 		}
 
-		// DELETE: api/Employee/5
-		[HttpDelete]
-		public ActionResult DeleteEmployee ([FromQuery] int employeeId)
+		/// <summary>
+		/// Удалить сотрудника.
+		/// </summary>
+		/// <response code="200">При успешном удалении сотрудника.</response>
+		/// <response code="400">Если не удалось удалить сотрудника.</response>   
+		/// <param name="employeeId">Id сотрудника.</param>
+		[HttpDelete ( "{employeeId}" )]
+		public ActionResult DeleteEmployee (int employeeId)
 		{
 			var result = _repoManager.EmployeeRepository.DeleteEmployeeById ( employeeId );
 			if ( result == RepositoryActionsResult.Success )
@@ -48,39 +62,63 @@ namespace LogTZ.WebApp.Controllers
 			}
 			else
 			{
-				return BadRequest(result);
+				return BadRequest();
 			}
 		}
 
-		// POST: api/Employee
+		/// <summary>
+		/// Добавить сотрудника.
+		/// </summary>
+		/// <response code="201">Возвращает Id нового сотрудника.</response>
+		/// <response code="400">Если не удалось добавить сотрудника.</response>   
+		/// <param name="employeeEditModel">Модель сотрудника.</param>
 		[HttpPost]
-		public ActionResult AddEmployee ([FromQuery] EmployeeEditModel employeeEditModel)
+		public ActionResult AddEmployee (EmployeeEditModel employeeEditModel)
 		{
-			var employee = _repoManager.EmployeeRepository.CreateEmployee(employeeEditModel);
-
-			if ( employee.repositoryActionResult == RepositoryActionsResult.Success )
+			if ( ModelState.IsValid )
 			{
-				return Ok(new { Id = employee.employeeId});
+				var employee = _repoManager.EmployeeRepository.CreateEmployee ( employeeEditModel );
+
+				if ( employee.repositoryActionResult == RepositoryActionsResult.Success )
+				{
+					return CreatedAtAction (nameof(AddEmployee), new { Id = employee.employeeId } );
+				}
+				else
+				{
+					return BadRequest ();
+				}
 			}
 			else
 			{
-				return BadRequest(employee.repositoryActionResult);
+				return BadRequest(employeeEditModel);
 			}
 		}
 
-		// PUT: api/Employee
+		/// <summary>
+		/// Изменить сотрудника.
+		/// </summary>
+		/// <response code="200">Возвращает модель сотрудника.</response>
+		/// <response code="400">Если не удалось обновить сотрудника.</response>   
+		/// <param name="employeeEditModel">Модель сотрудника.</param>
 		[HttpPut]
-		public ActionResult<EmployeeViewModel> UpdateEmployee ([FromQuery] EmployeeEditModel employeeEditModel)
+		public ActionResult<EmployeeViewModel> UpdateEmployee (EmployeeEditModel employeeEditModel)
 		{
-			var result = _repoManager.EmployeeRepository.UpdateEmployee(employeeEditModel);
-
-			if ( result.repositoryActionResult == RepositoryActionsResult.Success )
+			if ( ModelState.IsValid )
 			{
-				return Ok(result.employeeViewModel);
+				var result = _repoManager.EmployeeRepository.UpdateEmployee ( employeeEditModel );
+
+				if ( result.repositoryActionResult == RepositoryActionsResult.Success )
+				{
+					return Ok ( result.employeeViewModel );
+				}
+				else
+				{
+					return BadRequest ();
+				}
 			}
 			else
 			{
-				return BadRequest(result.repositoryActionResult);
+				return BadRequest(employeeEditModel);
 			}
 		}
 

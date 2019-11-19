@@ -26,12 +26,13 @@ namespace LogTZ.BLL.Implemetations
 
 		public RepositoryActionsResult DeletePositionById ( int positionId )
 		{
-			///TODO: Добавить проверку, что должность не занята.
-			var position = _mainContext.Positions.FirstOrDefault();
+			var position = _mainContext.Positions.FirstOrDefault(pos => pos.PositionId == positionId);
 
-			if ( position == default )
+			var employeePositions = _mainContext.EmployeePositions.FirstOrDefault(ep => ep.PositionId == positionId);
+
+			if ( position == default || employeePositions != default )
 			{
-				return RepositoryActionsResult.DadData;
+				return RepositoryActionsResult.BadRequest;
 			}
 			else
 			{
@@ -48,7 +49,7 @@ namespace LogTZ.BLL.Implemetations
 
 			if ( position == default )
 			{
-				return (RepositoryActionsResult.Fail, default);
+				return (RepositoryActionsResult.BadRequest, default);
 			}
 			else
 			{
@@ -63,22 +64,22 @@ namespace LogTZ.BLL.Implemetations
 		{
 			if ( positionEditModel is null )
 			{
-				return (RepositoryActionsResult.DadData, default);
+				return (RepositoryActionsResult.BadRequest, default);
 			}
 
-			var positionModel = _mapper.Map<Employee> ( positionEditModel );
+			var positionModel = _mapper.Map<Position> ( positionEditModel );
 
 			_mainContext.Add ( positionModel );
 			_mainContext.SaveChanges ( );
 
-			return (RepositoryActionsResult.Success, positionModel.EmployeeId);
+			return (RepositoryActionsResult.Success, positionModel.PositionId);
 		}
 
 		public (RepositoryActionsResult repositoryActionsResult, PositionViewModel positionViewModel) UpdatePosition ( PositionEditModel positionEditModel )
 		{
 			if ( positionEditModel is null )
 			{
-				return (RepositoryActionsResult.DadData, default);
+				return (RepositoryActionsResult.BadRequest, default);
 			}
 
 			var positionModel = _mapper.Map<Position> ( positionEditModel );
@@ -86,7 +87,7 @@ namespace LogTZ.BLL.Implemetations
 
 			if ( positionInDb == default )
 			{
-				return (RepositoryActionsResult.DadData, default);
+				return (RepositoryActionsResult.BadRequest, default);
 			}
 			else
 			{

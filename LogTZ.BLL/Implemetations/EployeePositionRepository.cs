@@ -26,17 +26,25 @@ namespace LogTZ.BLL.Implemetations
 
 			if ( position == default || employee == default )
 			{
-				return RepositoryActionsResult.DadData;
+				return RepositoryActionsResult.BadRequest;
 			}
 			else
 			{
 				var employeePosition = _mainContext.EmployeePositions
 					.FirstOrDefault ( empPos => empPos.EmployeeId == employeeId && empPos.PositionId == positionId );
 
-				_mainContext.EmployeePositions.Remove ( employeePosition );
-				_mainContext.SaveChanges();
+				if ( employeePosition != default )
+				{
+					_mainContext.EmployeePositions.Remove ( employeePosition );
+					_mainContext.SaveChanges ( );
 
-				return RepositoryActionsResult.Success;
+					return RepositoryActionsResult.Success;
+				}
+				else
+				{
+					return RepositoryActionsResult.BadRequest;
+				}
+
 			}
 		}
 
@@ -45,9 +53,12 @@ namespace LogTZ.BLL.Implemetations
 			var position = _mainContext.Positions.FirstOrDefault ( pos => pos.PositionId == positionId );
 			var employee = _mainContext.Employees.FirstOrDefault ( emp => emp.EmployeeId == employeeId );
 
-			if ( position == default || employee == default )
+			var employeePositionInDb = _mainContext.EmployeePositions
+				.FirstOrDefault ( emp => emp.EmployeeId == employeeId && emp.PositionId == positionId );
+
+			if ( position == default || employee == default || employeePositionInDb != default )
 			{
-				return RepositoryActionsResult.DadData;
+				return RepositoryActionsResult.BadRequest;
 			}
 			else
 			{

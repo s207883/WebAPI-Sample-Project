@@ -25,13 +25,14 @@ namespace LogTZ.BLL.Implemetations
 		{
 			var employeeInDb = _mainContext.Employees.FirstOrDefault ( emp => emp.EmployeeId == employeeId );
 
-			if ( employeeInDb == default )
+			var employeePosition = _mainContext.EmployeePositions.FirstOrDefault(emp => emp.EmployeeId == employeeId);
+
+			if ( employeeInDb == default || employeePosition != default)
 			{
-				return RepositoryActionsResult.DadData;
+				return RepositoryActionsResult.BadRequest;
 			}
 			else
 			{
-				//TODO: Добавить проверку.
 				_mainContext.Employees.Remove ( employeeInDb );
 				_mainContext.SaveChanges ( );
 
@@ -45,7 +46,7 @@ namespace LogTZ.BLL.Implemetations
 
 			if ( employeeModel == default )
 			{
-				return (RepositoryActionsResult.DadData, default);
+				return (RepositoryActionsResult.BadRequest, default);
 			}
 			else
 			{
@@ -58,10 +59,12 @@ namespace LogTZ.BLL.Implemetations
 		{
 			if ( employeeEditModel is null )
 			{
-				return (RepositoryActionsResult.DadData, default);
+				return (RepositoryActionsResult.BadRequest, default);
 			}
 
 			var employeeModel = _mapper.Map<Employee> ( employeeEditModel );
+
+			employeeModel.EmployeeId = default;
 
 			_mainContext.Add ( employeeModel );
 			_mainContext.SaveChanges ( );
@@ -73,7 +76,7 @@ namespace LogTZ.BLL.Implemetations
 		{
 			if ( employeeEditModel is null )
 			{
-				return (RepositoryActionsResult.DadData, null);
+				return (RepositoryActionsResult.BadRequest, null);
 			}
 
 			var employeeModel = _mapper.Map<Employee> ( employeeEditModel );
@@ -82,7 +85,7 @@ namespace LogTZ.BLL.Implemetations
 
 			if ( employeeInDb == default )
 			{
-				return (RepositoryActionsResult.DadData, null);
+				return (RepositoryActionsResult.BadRequest, null);
 			}
 			else
 			{
