@@ -62,7 +62,7 @@ namespace LogTZ.BLL.Implemetations
 
 		public (RepositoryActionsResult repositoryActionsResult, int positionId) CreatePosition ( PositionEditModel positionEditModel )
 		{
-			if ( positionEditModel is null )
+			if ( positionEditModel is null || positionEditModel.Grade > 15 || positionEditModel.Grade < 0 )
 			{
 				return (RepositoryActionsResult.BadRequest, default);
 			}
@@ -77,7 +77,7 @@ namespace LogTZ.BLL.Implemetations
 
 		public (RepositoryActionsResult repositoryActionsResult, PositionViewModel positionViewModel) UpdatePosition ( PositionEditModel positionEditModel )
 		{
-			if ( positionEditModel is null )
+			if ( positionEditModel is null || positionEditModel.Grade > 15 || positionEditModel.Grade < 0 )
 			{
 				return (RepositoryActionsResult.BadRequest, default);
 			}
