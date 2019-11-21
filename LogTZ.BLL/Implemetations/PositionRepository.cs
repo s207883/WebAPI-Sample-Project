@@ -45,7 +45,7 @@ namespace LogTZ.BLL.Implemetations
 
 		public (RepositoryActionsResult repositoryActionsResult, PositionViewModel positionViewModel) GetPositionById ( int positionId )
 		{
-			var position = _mainContext.Positions.FirstOrDefault (pos => pos.PositionId == positionId );
+			var position = _mainContext.Positions.AsNoTracking().FirstOrDefault (pos => pos.PositionId == positionId );
 
 			if ( position == default )
 			{

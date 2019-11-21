@@ -3,6 +3,7 @@ using LogTZ.BLL.Interfaces;
 using LogTZ.Core.Enums;
 using LogTZ.DAL;
 using LogTZ.DAL.Model;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,8 +22,8 @@ namespace LogTZ.BLL.Implemetations
 
 		public RepositoryActionsResult RemovePositionFromEmployee ( int positionId, int employeeId )
 		{
-			var position = _mainContext.Positions.FirstOrDefault ( pos => pos.PositionId == positionId );
-			var employee = _mainContext.Employees.FirstOrDefault ( emp => emp.EmployeeId == employeeId );
+			var position = _mainContext.Positions.AsNoTracking().FirstOrDefault ( pos => pos.PositionId == positionId );
+			var employee = _mainContext.Employees.AsNoTracking().FirstOrDefault ( emp => emp.EmployeeId == employeeId );
 
 			if ( position == default || employee == default )
 			{
@@ -50,8 +51,8 @@ namespace LogTZ.BLL.Implemetations
 
 		public RepositoryActionsResult SetPositionToEmployee ( int positionId, int employeeId )
 		{
-			var position = _mainContext.Positions.FirstOrDefault ( pos => pos.PositionId == positionId );
-			var employee = _mainContext.Employees.FirstOrDefault ( emp => emp.EmployeeId == employeeId );
+			var position = _mainContext.Positions.AsNoTracking().FirstOrDefault ( pos => pos.PositionId == positionId );
+			var employee = _mainContext.Employees.AsNoTracking().FirstOrDefault ( emp => emp.EmployeeId == employeeId );
 
 			var employeePositionInDb = _mainContext.EmployeePositions
 				.FirstOrDefault ( emp => emp.EmployeeId == employeeId && emp.PositionId == positionId );
