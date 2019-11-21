@@ -5,6 +5,7 @@ using LogTZ.Core.Enums;
 using LogTZ.Core.ViewModels;
 using LogTZ.DAL;
 using LogTZ.DAL.Model;
+using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -25,7 +26,9 @@ namespace LogTZ.BLL.Implemetations
 		{
 			var employeeInDb = _mainContext.Employees.FirstOrDefault ( emp => emp.EmployeeId == employeeId );
 
-			var employeePosition = _mainContext.EmployeePositions.FirstOrDefault(emp => emp.EmployeeId == employeeId);
+			var employeePosition = _mainContext.EmployeePositions
+				.AsNoTracking()
+				.FirstOrDefault(emp => emp.EmployeeId == employeeId);
 
 			if ( employeeInDb == default || employeePosition != default)
 			{
@@ -42,7 +45,9 @@ namespace LogTZ.BLL.Implemetations
 
 		public (RepositoryActionsResult repositoryActionResult, EmployeeViewModel employeeViewModel) GetEmployeeById ( int employeeId )
 		{
-			var employeeModel = _mainContext.Employees.FirstOrDefault ( emp => emp.EmployeeId == employeeId );
+			var employeeModel = _mainContext.Employees
+				.AsNoTracking()
+				.FirstOrDefault ( emp => emp.EmployeeId == employeeId );
 
 			if ( employeeModel == default )
 			{
@@ -103,15 +108,19 @@ namespace LogTZ.BLL.Implemetations
 		private EmployeeViewModel GetEmployeeViewModel ( Employee employeeInDb )
 		{
 			var employeeViewModel = _mapper.Map<EmployeeViewModel> ( employeeInDb );
-			var employeePositions = _mainContext.EmployeePositions.Where ( p => p.EmployeeId == employeeViewModel.EmployeeId ).ToList ( );
+			var employeePositions = _mainContext.EmployeePositions
+				.AsNoTracking()
+				.Include("Position")
+				.Where ( p => p.EmployeeId == employeeViewModel.EmployeeId )
+				.ToList ( );
 
 			var employeePositionsViewModel = _mapper.Map<IEnumerable<EmployeePositionViewModel>> ( employeePositions );
 
 			foreach ( var emPos in employeePositionsViewModel )
 			{
-				var position = _mainContext.Positions.FirstOrDefault ( pos => pos.PositionId == emPos.PositionId );
-				emPos.Name = position.Name;
-				emPos.Grade = position.Grade;
+				var position = employeePositions.FirstOrDefault ( pos => pos.PositionId == emPos.PositionId );
+				emPos.Name = position.Position.Name;
+				emPos.Grade = position.Position.Grade;
 			}
 
 			employeeViewModel.Positions = employeePositionsViewModel;
