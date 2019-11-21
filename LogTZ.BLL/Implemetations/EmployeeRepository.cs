@@ -110,7 +110,7 @@ namespace LogTZ.BLL.Implemetations
 			var employeeViewModel = _mapper.Map<EmployeeViewModel> ( employeeInDb );
 			var employeePositions = _mainContext.EmployeePositions
 				.AsNoTracking()
-				.Include("Position")
+				.Include(emp=> emp.Position)
 				.Where ( p => p.EmployeeId == employeeViewModel.EmployeeId )
 				.ToList ( );
 
