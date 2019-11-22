@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace LogTZ.Core.ViewModels
+namespace WebApiSample.Core.ViewModels
 {
 	/// <summary>
 	/// Модель представления сотрудника.

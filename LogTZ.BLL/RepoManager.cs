@@ -1,6 +1,6 @@
-﻿using LogTZ.BLL.Interfaces;
+﻿using WebApiSample.BLL.Interfaces;
 
-namespace LogTZ.BLL
+namespace WebApiSample.BLL
 {
 	/// <summary>
 	/// Менеджер данных.

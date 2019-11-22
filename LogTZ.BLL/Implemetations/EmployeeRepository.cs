@@ -1,15 +1,15 @@
 ﻿using AutoMapper;
-using LogTZ.BLL.Interfaces;
-using LogTZ.Core.EditModels;
-using LogTZ.Core.Enums;
-using LogTZ.Core.ViewModels;
-using LogTZ.DAL;
-using LogTZ.DAL.Model;
+using WebApiSample.BLL.Interfaces;
+using WebApiSample.Core.EditModels;
+using WebApiSample.Core.Enums;
+using WebApiSample.Core.ViewModels;
+using WebApiSample.DAL;
+using WebApiSample.DAL.Model;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace LogTZ.BLL.Implemetations
+namespace WebApiSample.BLL.Implemetations
 {
 	public class EmployeeRepository : IEmployeeRepository
 	{

@@ -1,11 +1,11 @@
-﻿using LogTZ.Core.EditModels;
-using LogTZ.Core.Enums;
-using LogTZ.Core.ViewModels;
+﻿using WebApiSample.Core.EditModels;
+using WebApiSample.Core.Enums;
+using WebApiSample.Core.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace LogTZ.BLL.Interfaces
+namespace WebApiSample.BLL.Interfaces
 {
 	/// <summary>
 	/// Интерфейс репозитория должностей.

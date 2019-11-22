@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace LogTZ.DAL.Model
+namespace WebApiSample.DAL.Model
 {
 	/// <summary>
 	/// Модель должности.

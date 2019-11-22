@@ -1,4 +1,4 @@
-﻿namespace LogTZ.DAL.Model
+﻿namespace WebApiSample.DAL.Model
 {
 	public class EmployeePosition
 	{

@@ -5,11 +5,11 @@ using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
 using AutoMapper;
-using LogTZ.BLL;
-using LogTZ.BLL.Implemetations;
-using LogTZ.BLL.Interfaces;
-using LogTZ.Core.AutomapperProfiles;
-using LogTZ.DAL;
+using WebApiSample.BLL;
+using WebApiSample.BLL.Implemetations;
+using WebApiSample.BLL.Interfaces;
+using WebApiSample.Core.AutomapperProfiles;
+using WebApiSample.DAL;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
@@ -19,7 +19,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 
-namespace LogTZ.WebApp
+namespace WebApiSample.WebApp
 {
 	public class Startup
 	{

@@ -2,12 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using LogTZ.BLL;
-using LogTZ.Core.Enums;
+using WebApiSample.BLL;
+using WebApiSample.Core.Enums;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
-namespace LogTZ.WebApp.Controllers
+namespace WebApiSample.WebApp.Controllers
 {
 	/// <summary>
 	/// Контроллер должностей сотрудников.

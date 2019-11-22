@@ -2,11 +2,11 @@
 using System.Collections.Generic;
 using System.Text;
 using AutoMapper;
-using LogTZ.Core.EditModels;
-using LogTZ.Core.ViewModels;
-using LogTZ.DAL.Model;
+using WebApiSample.Core.EditModels;
+using WebApiSample.Core.ViewModels;
+using WebApiSample.DAL.Model;
 
-namespace LogTZ.Core.AutomapperProfiles
+namespace WebApiSample.Core.AutomapperProfiles
 {
 	/// <summary>
 	/// Профиль сотрудника для AutoMapper

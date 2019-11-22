@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Text;
 
-namespace LogTZ.Core.EditModels
+namespace WebApiSample.Core.EditModels
 {
 	public class EmployeeEditModel
 	{

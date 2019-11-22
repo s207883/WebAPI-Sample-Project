@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace LogTZ.Core.Enums
+namespace WebApiSample.Core.Enums
 {
 	/// <summary>
 	/// Результат работы репозитория.

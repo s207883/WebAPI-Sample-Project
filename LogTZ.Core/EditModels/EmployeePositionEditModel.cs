@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace LogTZ.Core.EditModels
+namespace WebApiSample.Core.EditModels
 {
 	/// <summary>
 	/// Модель представления должности сотрудника.

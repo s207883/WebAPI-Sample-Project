@@ -1,4 +1,4 @@
-﻿namespace LogTZ.Core.ViewModels
+﻿namespace WebApiSample.Core.ViewModels
 {
 	/// <summary>
 	/// Модель представления должности.

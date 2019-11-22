@@ -2,14 +2,14 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using LogTZ.BLL;
-using LogTZ.Core.EditModels;
-using LogTZ.Core.Enums;
-using LogTZ.Core.ViewModels;
+using WebApiSample.BLL;
+using WebApiSample.Core.EditModels;
+using WebApiSample.Core.Enums;
+using WebApiSample.Core.ViewModels;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
-namespace LogTZ.WebApp.Controllers
+namespace WebApiSample.WebApp.Controllers
 {
 	/// <summary>
 	/// Контроллер должностей.

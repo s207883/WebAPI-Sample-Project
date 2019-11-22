@@ -1,8 +1,8 @@
-﻿using LogTZ.DAL.Model;
+﻿using WebApiSample.DAL.Model;
 using Microsoft.EntityFrameworkCore;
 using System;
 
-namespace LogTZ.DAL
+namespace WebApiSample.DAL
 {
 	public class MainContext : DbContext
 	{
