@@ -9,7 +9,7 @@ using System.Text;
 namespace LogTZ.Core.AutomapperProfiles
 {
 	/// <summary>
-	/// Профиль должности.
+	/// Профиль должности для AutoMapper.
 	/// </summary>
 	public class PositionProfile : Profile
 	{

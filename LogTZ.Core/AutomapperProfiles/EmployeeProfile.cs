@@ -9,7 +9,7 @@ using LogTZ.DAL.Model;
 namespace LogTZ.Core.AutomapperProfiles
 {
 	/// <summary>
-	/// Профиль сотрудника.
+	/// Профиль сотрудника для AutoMapper
 	/// </summary>
 	public class EmployeeProfile : Profile
 	{

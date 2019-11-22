@@ -10,6 +10,9 @@ namespace LogTZ.Core.AutomapperProfiles
 {
 	public class EmployeePositionProfile : Profile
 	{
+		/// <summary>
+		/// Профиль должности сотрудника для AutoMapper
+		/// </summary>
 		public EmployeePositionProfile ( )
 		{
 			CreateMap<EmployeePosition, EmployeePositionViewModel>().ReverseMap();
