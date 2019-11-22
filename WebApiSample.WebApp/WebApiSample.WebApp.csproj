@@ -20,8 +20,8 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<ProjectReference Include="..\LogTZ.BLL\WebApiSample.BLL.csproj" />
-		<ProjectReference Include="..\LogTZ.Core\WebApiSample.Core.csproj" />
+		<ProjectReference Include="..\WebApiSample.BLL\WebApiSample.BLL.csproj" />
+		<ProjectReference Include="..\WebApiSample.Core\WebApiSample.Core.csproj" />
 	</ItemGroup>
 
 	<ItemGroup>

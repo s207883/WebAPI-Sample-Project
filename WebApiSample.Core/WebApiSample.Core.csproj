@@ -9,7 +9,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\LogTZ.DAL\WebApiSample.DAL.csproj" />
+    <ProjectReference Include="..\WebApiSample.DAL\WebApiSample.DAL.csproj" />
   </ItemGroup>
 
 </Project>

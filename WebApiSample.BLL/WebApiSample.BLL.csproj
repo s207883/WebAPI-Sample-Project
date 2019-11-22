@@ -5,8 +5,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\LogTZ.Core\WebApiSample.Core.csproj" />
-    <ProjectReference Include="..\LogTZ.DAL\WebApiSample.DAL.csproj" />
+    <ProjectReference Include="..\WebApiSample.Core\WebApiSample.Core.csproj" />
+    <ProjectReference Include="..\WebApiSample.DAL\WebApiSample.DAL.csproj" />
   </ItemGroup>
 
 </Project>
