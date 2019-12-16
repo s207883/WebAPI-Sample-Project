@@ -13,7 +13,7 @@ namespace WebApiSample.Core.AutomapperProfiles
 		/// <summary>
 		/// Профиль должности сотрудника для AutoMapper
 		/// </summary>
-		public EmployeePositionProfile ( )
+		public EmployeePositionProfile()
 		{
 			CreateMap<EmployeePosition, EmployeePositionViewModel>().ReverseMap();
 			CreateMap<EmployeePosition, EmployeePositionEditModel>().ReverseMap();

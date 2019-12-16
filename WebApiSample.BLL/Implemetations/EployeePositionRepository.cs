@@ -15,29 +15,29 @@ namespace WebApiSample.BLL.Implemetations
 	{
 		private readonly MainContext _mainContext;
 
-		public EployeePositionRepository (MainContext mainContext)
+		public EployeePositionRepository(MainContext mainContext)
 		{
 			_mainContext = mainContext;
 		}
 
-		public RepositoryActionsResult RemovePositionFromEmployee ( int positionId, int employeeId )
+		public RepositoryActionsResult RemovePositionFromEmployee(int positionId, int employeeId)
 		{
-			var position = _mainContext.Positions.AsNoTracking().FirstOrDefault ( pos => pos.PositionId == positionId );
-			var employee = _mainContext.Employees.AsNoTracking().FirstOrDefault ( emp => emp.EmployeeId == employeeId );
+			var position = _mainContext.Positions.AsNoTracking().FirstOrDefault(pos => pos.PositionId == positionId);
+			var employee = _mainContext.Employees.AsNoTracking().FirstOrDefault(emp => emp.EmployeeId == employeeId);
 
-			if ( position == default || employee == default )
+			if (position == default || employee == default)
 			{
 				return RepositoryActionsResult.BadRequest;
 			}
 			else
 			{
 				var employeePosition = _mainContext.EmployeePositions
-					.FirstOrDefault ( empPos => empPos.EmployeeId == employeeId && empPos.PositionId == positionId );
+					.FirstOrDefault(empPos => empPos.EmployeeId == employeeId && empPos.PositionId == positionId);
 
-				if ( employeePosition != default )
+				if (employeePosition != default)
 				{
-					_mainContext.EmployeePositions.Remove ( employeePosition );
-					_mainContext.SaveChanges ( );
+					_mainContext.EmployeePositions.Remove(employeePosition);
+					_mainContext.SaveChanges();
 
 					return RepositoryActionsResult.Success;
 				}
@@ -49,15 +49,15 @@ namespace WebApiSample.BLL.Implemetations
 			}
 		}
 
-		public RepositoryActionsResult SetPositionToEmployee ( int positionId, int employeeId )
+		public RepositoryActionsResult SetPositionToEmployee(int positionId, int employeeId)
 		{
-			var position = _mainContext.Positions.AsNoTracking().FirstOrDefault ( pos => pos.PositionId == positionId );
-			var employee = _mainContext.Employees.AsNoTracking().FirstOrDefault ( emp => emp.EmployeeId == employeeId );
+			var position = _mainContext.Positions.AsNoTracking().FirstOrDefault(pos => pos.PositionId == positionId);
+			var employee = _mainContext.Employees.AsNoTracking().FirstOrDefault(emp => emp.EmployeeId == employeeId);
 
 			var employeePositionInDb = _mainContext.EmployeePositions
-				.FirstOrDefault ( emp => emp.EmployeeId == employeeId && emp.PositionId == positionId );
+				.FirstOrDefault(emp => emp.EmployeeId == employeeId && emp.PositionId == positionId);
 
-			if ( position == default || employee == default || employeePositionInDb != default )
+			if (position == default || employee == default || employeePositionInDb != default)
 			{
 				return RepositoryActionsResult.BadRequest;
 			}
@@ -69,8 +69,8 @@ namespace WebApiSample.BLL.Implemetations
 					PositionId = positionId
 				};
 
-				_mainContext.EmployeePositions.Add ( employeePosition );
-				_mainContext.SaveChanges ( );
+				_mainContext.EmployeePositions.Add(employeePosition);
+				_mainContext.SaveChanges();
 
 				return RepositoryActionsResult.Success;
 			}

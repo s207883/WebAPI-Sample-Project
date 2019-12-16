@@ -24,36 +24,36 @@ namespace WebApiSample.DAL
 		/// <summary>
 		/// Основной контекст приложения.
 		/// </summary>
-		public MainContext (DbContextOptions<MainContext> options):base(options)
+		public MainContext(DbContextOptions<MainContext> options) : base(options)
 		{
-			Database.EnsureCreated ( );
+			Database.EnsureCreated();
 		}
 
 		/// <summary>
 		/// Реализация FluentAPI.
 		/// </summary>
-		protected override void OnModelCreating ( ModelBuilder modelBuilder )
+		protected override void OnModelCreating(ModelBuilder modelBuilder)
 		{
 			#region EployeePosition Table
-			modelBuilder.Entity<EmployeePosition> ( )
-				.HasKey ( key => new { key.PositionId, key.EmployeeId } );
+			modelBuilder.Entity<EmployeePosition>()
+				.HasKey(key => new { key.PositionId, key.EmployeeId });
 
 
-			modelBuilder.Entity<EmployeePosition> ( )
-				.HasOne ( emp => emp.Employee )
-				.WithMany ( ep => ep.EployeePositions )
-				.HasForeignKey ( fk => fk.EmployeeId );
+			modelBuilder.Entity<EmployeePosition>()
+				.HasOne(emp => emp.Employee)
+				.WithMany(ep => ep.EployeePositions)
+				.HasForeignKey(fk => fk.EmployeeId);
 
 
-			modelBuilder.Entity<EmployeePosition> ( )
-				.HasOne ( emp => emp.Position )
-				.WithMany ( ep => ep.EployeePositions )
-				.HasForeignKey ( fk => fk.PositionId );
+			modelBuilder.Entity<EmployeePosition>()
+				.HasOne(emp => emp.Position)
+				.WithMany(ep => ep.EployeePositions)
+				.HasForeignKey(fk => fk.PositionId);
 			#endregion
 
 			#region DataInitialisation
-			modelBuilder.Entity<Employee> ( )
-				.HasData (
+			modelBuilder.Entity<Employee>()
+				.HasData(
 				new Employee { EmployeeId = 1, BirthDate = DateTime.Now, Name = "Ivanov Ivan" },
 				new Employee { EmployeeId = 2, BirthDate = DateTime.Now, Name = "Petrov Petr" },
 				new Employee { EmployeeId = 3, BirthDate = DateTime.Now, Name = "Nikolaev Nikolay" },
@@ -66,8 +66,8 @@ namespace WebApiSample.DAL
 				new Employee { EmployeeId = 10, BirthDate = DateTime.Now, Name = "German Jobless" }
 				);
 
-			modelBuilder.Entity<Position> ( )
-				.HasData (
+			modelBuilder.Entity<Position>()
+				.HasData(
 				new Position { PositionId = 1, Name = "General director", Grade = 10 },
 				new Position { PositionId = 2, Name = "General accountant", Grade = 9 },
 				new Position { PositionId = 3, Name = "Office director", Grade = 8 },
@@ -80,8 +80,8 @@ namespace WebApiSample.DAL
 				new Position { PositionId = 10, Name = "Cleaner", Grade = 1 }
 				);
 
-			modelBuilder.Entity<EmployeePosition> ( )
-				.HasData (
+			modelBuilder.Entity<EmployeePosition>()
+				.HasData(
 				new EmployeePosition { PositionId = 1, EmployeeId = 1 },
 				new EmployeePosition { PositionId = 2, EmployeeId = 1 },
 				new EmployeePosition { PositionId = 3, EmployeeId = 1 },
@@ -95,7 +95,7 @@ namespace WebApiSample.DAL
 				);
 			#endregion
 
-			base.OnModelCreating ( modelBuilder );
+			base.OnModelCreating(modelBuilder);
 		}
 	}
 }

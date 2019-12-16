@@ -17,27 +17,27 @@ namespace WebApiSample.BLL.Interfaces
 		/// </summary>
 		/// <param name="positionEditModel">Модель должности.</param>
 		/// <returns>Результат добавления и Id.</returns>
-		(RepositoryActionsResult repositoryActionsResult, int positionId) CreatePosition ( PositionEditModel positionEditModel );
+		(RepositoryActionsResult repositoryActionsResult, int positionId) CreatePosition(PositionEditModel positionEditModel);
 
 		/// <summary>
 		/// Обновить должность.
 		/// </summary>
 		/// <param name="positionEditModel">Модель должности.</param>
 		/// <returns>Результат обновления и новую модель.</returns>
-		(RepositoryActionsResult repositoryActionsResult, PositionViewModel positionViewModel) UpdatePosition ( PositionEditModel positionEditModel );
+		(RepositoryActionsResult repositoryActionsResult, PositionViewModel positionViewModel) UpdatePosition(PositionEditModel positionEditModel);
 
 		/// <summary>
 		/// Удалить должность по Id.
 		/// </summary>
 		/// <param name="positionId">Id должности.</param>
 		/// <returns>Результат удаления.</returns>
-		RepositoryActionsResult DeletePositionById ( int positionId );
+		RepositoryActionsResult DeletePositionById(int positionId);
 
 		/// <summary>
 		/// Получить должность по Id.
 		/// </summary>
 		/// <param name="positionId">Id должности.</param>
 		/// <returns>Результат и модель.</returns>
-		(RepositoryActionsResult repositoryActionsResult, PositionViewModel positionViewModel) GetPositionById ( int positionId );
+		(RepositoryActionsResult repositoryActionsResult, PositionViewModel positionViewModel) GetPositionById(int positionId);
 	}
 }

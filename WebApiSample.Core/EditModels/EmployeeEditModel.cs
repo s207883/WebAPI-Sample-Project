@@ -15,13 +15,13 @@ namespace WebApiSample.Core.EditModels
 		/// <summary>
 		/// Имя сотрудника.
 		/// </summary>
-		[Required ( ErrorMessage = "Требуется имя" )]
+		[Required(ErrorMessage = "Требуется имя")]
 		public string Name { get; set; }
 
 		/// <summary>
 		/// Дата рождения.
 		/// </summary>
-		[Required ( ErrorMessage = "Требудется дата рождения" )]
+		[Required(ErrorMessage = "Требудется дата рождения")]
 		public DateTime BirthDate { get; set; }
 	}
 }

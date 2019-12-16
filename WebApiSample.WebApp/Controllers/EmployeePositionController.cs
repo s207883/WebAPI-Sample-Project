@@ -12,13 +12,13 @@ namespace WebApiSample.WebApp.Controllers
 	/// <summary>
 	/// Контроллер должностей сотрудников.
 	/// </summary>
-	[Route ( "api/[controller]" )]
+	[Route("api/[controller]")]
 	[ApiController]
 	public class EmployeePositionController : ControllerBase
 	{
 		private readonly RepoManager _repoManager;
 
-		public EmployeePositionController (RepoManager repoManager)
+		public EmployeePositionController(RepoManager repoManager)
 		{
 			_repoManager = repoManager;
 		}
@@ -30,14 +30,14 @@ namespace WebApiSample.WebApp.Controllers
 		/// <param name="employeeId">Id сотрудника.</param>
 		/// <response code="201">При добавлении должности сотруднику.</response>
 		/// <response code="400">Если не удалось добавить должность сотруднику.</response>   
-		[HttpPost ("{positionId}, {employeeId}" )]
-		public ActionResult SetPositionToEmployee (int positionId, int employeeId)
+		[HttpPost("{positionId}, {employeeId}")]
+		public ActionResult SetPositionToEmployee(int positionId, int employeeId)
 		{
-			var result = _repoManager.EployeePositionRepository.SetPositionToEmployee(positionId,employeeId);
+			var result = _repoManager.EployeePositionRepository.SetPositionToEmployee(positionId, employeeId);
 
-			if ( result == RepositoryActionsResult.Success )
+			if (result == RepositoryActionsResult.Success)
 			{
-				return CreatedAtAction(nameof(SetPositionToEmployee), new { PositionId = positionId, EmployeeId = employeeId});
+				return CreatedAtAction(nameof(SetPositionToEmployee), new { PositionId = positionId, EmployeeId = employeeId });
 			}
 			else
 			{
@@ -52,18 +52,18 @@ namespace WebApiSample.WebApp.Controllers
 		/// <param name="employeeId">Id сотрудника.</param>
 		/// <response code="200">При снятии сотрудника с должности.</response>
 		/// <response code="400">Если не удалось снять сотрудника с должности.</response>   
-		[HttpDelete ("{positionId}, {employeeId}" )]
-		public ActionResult RemovePositionFromEmployee (int positionId, int employeeId)
+		[HttpDelete("{positionId}, {employeeId}")]
+		public ActionResult RemovePositionFromEmployee(int positionId, int employeeId)
 		{
-			var result = _repoManager.EployeePositionRepository.RemovePositionFromEmployee ( positionId, employeeId );
+			var result = _repoManager.EployeePositionRepository.RemovePositionFromEmployee(positionId, employeeId);
 
-			if ( result == RepositoryActionsResult.Success )
+			if (result == RepositoryActionsResult.Success)
 			{
-				return Ok ( );
+				return Ok();
 			}
 			else
 			{
-				return BadRequest ();
+				return BadRequest();
 			}
 		}
 

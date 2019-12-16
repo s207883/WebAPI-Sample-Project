@@ -16,7 +16,7 @@ namespace WebApiSample.BLL.Interfaces
 		/// <param name="positionId">Id должности.</param>
 		/// <param name="employeeId">Id сотрудника.</param>
 		/// <returns>Результат добавления.</returns>
-		RepositoryActionsResult SetPositionToEmployee ( int positionId, int employeeId );
+		RepositoryActionsResult SetPositionToEmployee(int positionId, int employeeId);
 
 		/// <summary>
 		/// Удаляет должность у сотрудника.
@@ -24,6 +24,6 @@ namespace WebApiSample.BLL.Interfaces
 		/// <param name="positionId">Id должности.</param>
 		/// <param name="employeeId">Id сотрудника.</param>
 		/// <returns>Результат удаления.</returns>
-		RepositoryActionsResult RemovePositionFromEmployee ( int positionId, int employeeId );
+		RepositoryActionsResult RemovePositionFromEmployee(int positionId, int employeeId);
 	}
 }
