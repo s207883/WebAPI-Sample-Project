@@ -16,79 +16,79 @@ namespace WebApiSample.BLL.Implemetations
 		private readonly MainContext _mainContext;
 		private readonly IMapper _mapper;
 
-		public EmployeeRepository ( MainContext mainContext, IMapper mapper )
+		public EmployeeRepository(MainContext mainContext, IMapper mapper)
 		{
 			_mainContext = mainContext;
 			_mapper = mapper;
 		}
 
-		public RepositoryActionsResult DeleteEmployeeById ( int employeeId )
+		public RepositoryActionsResult DeleteEmployeeById(int employeeId)
 		{
-			var employeeInDb = _mainContext.Employees.FirstOrDefault ( emp => emp.EmployeeId == employeeId );
+			var employeeInDb = _mainContext.Employees.FirstOrDefault(emp => emp.EmployeeId == employeeId);
 
 			var employeePosition = _mainContext.EmployeePositions
 				.AsNoTracking()
 				.FirstOrDefault(emp => emp.EmployeeId == employeeId);
 
-			if ( employeeInDb == default || employeePosition != default)
+			if (employeeInDb == default || employeePosition != default)
 			{
 				return RepositoryActionsResult.BadRequest;
 			}
 			else
 			{
-				_mainContext.Employees.Remove ( employeeInDb );
-				_mainContext.SaveChanges ( );
+				_mainContext.Employees.Remove(employeeInDb);
+				_mainContext.SaveChanges();
 
 				return RepositoryActionsResult.Success;
 			}
 		}
 
-		public (RepositoryActionsResult repositoryActionResult, EmployeeViewModel employeeViewModel) GetEmployeeById ( int employeeId )
+		public (RepositoryActionsResult repositoryActionResult, EmployeeViewModel employeeViewModel) GetEmployeeById(int employeeId)
 		{
 			var employeeModel = _mainContext.Employees
 				.AsNoTracking()
-				.FirstOrDefault ( emp => emp.EmployeeId == employeeId );
+				.FirstOrDefault(emp => emp.EmployeeId == employeeId);
 
-			if ( employeeModel == default )
+			if (employeeModel == default)
 			{
 				return (RepositoryActionsResult.BadRequest, default);
 			}
 			else
 			{
-				EmployeeViewModel employeeViewModel = GetEmployeeViewModel ( employeeModel );
+				EmployeeViewModel employeeViewModel = GetEmployeeViewModel(employeeModel);
 				return (RepositoryActionsResult.Success, employeeViewModel);
 			}
 		}
 
-		public (RepositoryActionsResult repositoryActionResult, int employeeId) CreateEmployee ( EmployeeEditModel employeeEditModel )
+		public (RepositoryActionsResult repositoryActionResult, int employeeId) CreateEmployee(EmployeeEditModel employeeEditModel)
 		{
-			if ( employeeEditModel is null )
+			if (employeeEditModel is null)
 			{
 				return (RepositoryActionsResult.BadRequest, default);
 			}
 
-			var employeeModel = _mapper.Map<Employee> ( employeeEditModel );
+			var employeeModel = _mapper.Map<Employee>(employeeEditModel);
 
 			employeeModel.EmployeeId = default;
 
-			_mainContext.Add ( employeeModel );
-			_mainContext.SaveChanges ( );
+			_mainContext.Add(employeeModel);
+			_mainContext.SaveChanges();
 
 			return (RepositoryActionsResult.Success, employeeModel.EmployeeId);
 		}
 
-		public (RepositoryActionsResult repositoryActionResult, EmployeeViewModel employeeViewModel) UpdateEmployee ( EmployeeEditModel employeeEditModel )
+		public (RepositoryActionsResult repositoryActionResult, EmployeeViewModel employeeViewModel) UpdateEmployee(EmployeeEditModel employeeEditModel)
 		{
-			if ( employeeEditModel is null )
+			if (employeeEditModel is null)
 			{
 				return (RepositoryActionsResult.BadRequest, null);
 			}
 
-			var employeeModel = _mapper.Map<Employee> ( employeeEditModel );
+			var employeeModel = _mapper.Map<Employee>(employeeEditModel);
 
-			var employeeInDb = _mainContext.Employees.FirstOrDefault ( emp => emp.EmployeeId == employeeModel.EmployeeId );
+			var employeeInDb = _mainContext.Employees.FirstOrDefault(emp => emp.EmployeeId == employeeModel.EmployeeId);
 
-			if ( employeeInDb == default )
+			if (employeeInDb == default)
 			{
 				return (RepositoryActionsResult.BadRequest, null);
 			}
@@ -97,28 +97,28 @@ namespace WebApiSample.BLL.Implemetations
 				employeeInDb.Name = employeeModel.Name;
 				employeeInDb.BirthDate = employeeInDb.BirthDate;
 
-				_mainContext.SaveChanges ( );
+				_mainContext.SaveChanges();
 
-				EmployeeViewModel employeeViewModel = GetEmployeeViewModel ( employeeInDb );
+				EmployeeViewModel employeeViewModel = GetEmployeeViewModel(employeeInDb);
 
 				return (RepositoryActionsResult.Success, employeeViewModel);
 			}
 		}
 
-		private EmployeeViewModel GetEmployeeViewModel ( Employee employeeInDb )
+		private EmployeeViewModel GetEmployeeViewModel(Employee employeeInDb)
 		{
-			var employeeViewModel = _mapper.Map<EmployeeViewModel> ( employeeInDb );
+			var employeeViewModel = _mapper.Map<EmployeeViewModel>(employeeInDb);
 			var employeePositions = _mainContext.EmployeePositions
 				.AsNoTracking()
-				.Include(emp=> emp.Position)
-				.Where ( p => p.EmployeeId == employeeViewModel.EmployeeId )
-				.ToList ( );
+				.Include(emp => emp.Position)
+				.Where(p => p.EmployeeId == employeeViewModel.EmployeeId)
+				.ToList();
 
-			var employeePositionsViewModel = _mapper.Map<IEnumerable<EmployeePositionViewModel>> ( employeePositions );
+			var employeePositionsViewModel = _mapper.Map<IEnumerable<EmployeePositionViewModel>>(employeePositions);
 
-			foreach ( var emPos in employeePositionsViewModel )
+			foreach (var emPos in employeePositionsViewModel)
 			{
-				var position = employeePositions.FirstOrDefault ( pos => pos.PositionId == emPos.PositionId );
+				var position = employeePositions.FirstOrDefault(pos => pos.PositionId == emPos.PositionId);
 				emPos.Name = position.Position.Name;
 				emPos.Grade = position.Position.Grade;
 			}

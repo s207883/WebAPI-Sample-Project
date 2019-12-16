@@ -18,19 +18,19 @@ namespace WebApiSample.BLL.Implemetations
 		private readonly MainContext _mainContext;
 		private readonly IMapper _mapper;
 
-		public PositionRepository (MainContext mainContext, IMapper mapper)
+		public PositionRepository(MainContext mainContext, IMapper mapper)
 		{
 			_mainContext = mainContext;
 			_mapper = mapper;
 		}
 
-		public RepositoryActionsResult DeletePositionById ( int positionId )
+		public RepositoryActionsResult DeletePositionById(int positionId)
 		{
 			var position = _mainContext.Positions.FirstOrDefault(pos => pos.PositionId == positionId);
 
 			var employeePositions = _mainContext.EmployeePositions.FirstOrDefault(ep => ep.PositionId == positionId);
 
-			if ( position == default || employeePositions != default )
+			if (position == default || employeePositions != default)
 			{
 				return RepositoryActionsResult.BadRequest;
 			}
@@ -43,11 +43,11 @@ namespace WebApiSample.BLL.Implemetations
 			}
 		}
 
-		public (RepositoryActionsResult repositoryActionsResult, PositionViewModel positionViewModel) GetPositionById ( int positionId )
+		public (RepositoryActionsResult repositoryActionsResult, PositionViewModel positionViewModel) GetPositionById(int positionId)
 		{
-			var position = _mainContext.Positions.AsNoTracking().FirstOrDefault (pos => pos.PositionId == positionId );
+			var position = _mainContext.Positions.AsNoTracking().FirstOrDefault(pos => pos.PositionId == positionId);
 
-			if ( position == default )
+			if (position == default)
 			{
 				return (RepositoryActionsResult.BadRequest, default);
 			}
@@ -60,32 +60,32 @@ namespace WebApiSample.BLL.Implemetations
 		}
 
 
-		public (RepositoryActionsResult repositoryActionsResult, int positionId) CreatePosition ( PositionEditModel positionEditModel )
+		public (RepositoryActionsResult repositoryActionsResult, int positionId) CreatePosition(PositionEditModel positionEditModel)
 		{
-			if ( positionEditModel is null || positionEditModel.Grade > 15 || positionEditModel.Grade < 0 )
+			if (positionEditModel is null || positionEditModel.Grade > 15 || positionEditModel.Grade < 0)
 			{
 				return (RepositoryActionsResult.BadRequest, default);
 			}
 
-			var positionModel = _mapper.Map<Position> ( positionEditModel );
+			var positionModel = _mapper.Map<Position>(positionEditModel);
 
-			_mainContext.Add ( positionModel );
-			_mainContext.SaveChanges ( );
+			_mainContext.Add(positionModel);
+			_mainContext.SaveChanges();
 
 			return (RepositoryActionsResult.Success, positionModel.PositionId);
 		}
 
-		public (RepositoryActionsResult repositoryActionsResult, PositionViewModel positionViewModel) UpdatePosition ( PositionEditModel positionEditModel )
+		public (RepositoryActionsResult repositoryActionsResult, PositionViewModel positionViewModel) UpdatePosition(PositionEditModel positionEditModel)
 		{
-			if ( positionEditModel is null || positionEditModel.Grade > 15 || positionEditModel.Grade < 0 )
+			if (positionEditModel is null || positionEditModel.Grade > 15 || positionEditModel.Grade < 0)
 			{
 				return (RepositoryActionsResult.BadRequest, default);
 			}
 
-			var positionModel = _mapper.Map<Position> ( positionEditModel );
-			var positionInDb = _mainContext.Positions.FirstOrDefault ( pos => pos.PositionId == positionModel.PositionId );
+			var positionModel = _mapper.Map<Position>(positionEditModel);
+			var positionInDb = _mainContext.Positions.FirstOrDefault(pos => pos.PositionId == positionModel.PositionId);
 
-			if ( positionInDb == default )
+			if (positionInDb == default)
 			{
 				return (RepositoryActionsResult.BadRequest, default);
 			}
@@ -94,7 +94,7 @@ namespace WebApiSample.BLL.Implemetations
 				positionInDb.Name = positionModel.Name;
 				positionInDb.Grade = positionModel.Grade;
 
-				_mainContext.SaveChanges ( );
+				_mainContext.SaveChanges();
 
 				var positionViewModel = _mapper.Map<PositionViewModel>(positionInDb);
 				return (RepositoryActionsResult.Success, positionViewModel);

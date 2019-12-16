@@ -14,13 +14,13 @@ namespace WebApiSample.WebApp.Controllers
 	/// <summary>
 	/// Контроллер должностей.
 	/// </summary>
-	[Route ( "api/[controller]" )]
+	[Route("api/[controller]")]
 	[ApiController]
 	public class PositionController : ControllerBase
 	{
 		private readonly RepoManager _repoManager;
 
-		public PositionController (RepoManager repoManager)
+		public PositionController(RepoManager repoManager)
 		{
 			_repoManager = repoManager;
 		}
@@ -33,19 +33,19 @@ namespace WebApiSample.WebApp.Controllers
 		/// <response code="400">Если не удалось добавить должность.</response>   
 		/// <returns>Id должности.</returns>
 		[HttpPost]
-		public ActionResult<int> AddPosition (PositionEditModel positionEditModel)
+		public ActionResult<int> AddPosition(PositionEditModel positionEditModel)
 		{
-			if ( ModelState.IsValid )
+			if (ModelState.IsValid)
 			{
-				var result = _repoManager.PositionRepository.CreatePosition ( positionEditModel );
+				var result = _repoManager.PositionRepository.CreatePosition(positionEditModel);
 
-				if ( result.repositoryActionsResult == RepositoryActionsResult.Success )
+				if (result.repositoryActionsResult == RepositoryActionsResult.Success)
 				{
-					return CreatedAtAction ( nameof ( AddPosition ),new { Id = result.positionId } );
+					return CreatedAtAction(nameof(AddPosition), new { Id = result.positionId });
 				}
 				else
 				{
-					return BadRequest ();
+					return BadRequest();
 				}
 			}
 			else
@@ -61,12 +61,12 @@ namespace WebApiSample.WebApp.Controllers
 		/// <response code="200">Возвращает должность.</response>
 		/// <response code="400">Если не удалось найти должность.</response> 
 		/// <returns>Модель должности.</returns>
-		[HttpGet ( "{positionId}")]
-		public ActionResult<PositionViewModel> GetPosition (int positionId)
+		[HttpGet("{positionId}")]
+		public ActionResult<PositionViewModel> GetPosition(int positionId)
 		{
 			var result = _repoManager.PositionRepository.GetPositionById(positionId);
 
-			if ( result.repositoryActionsResult == RepositoryActionsResult.Success )
+			if (result.repositoryActionsResult == RepositoryActionsResult.Success)
 			{
 				return Ok(result.positionViewModel);
 			}
@@ -84,19 +84,19 @@ namespace WebApiSample.WebApp.Controllers
 		/// <response code="400">Если не удалось обновить должность.</response> 
 		/// <returns>Обновленную модель должности.</returns>
 		[HttpPut]
-		public ActionResult<PositionViewModel> UpdatePosition (PositionEditModel positionEditModel)
+		public ActionResult<PositionViewModel> UpdatePosition(PositionEditModel positionEditModel)
 		{
-			if ( ModelState.IsValid )
+			if (ModelState.IsValid)
 			{
-				var result = _repoManager.PositionRepository.UpdatePosition ( positionEditModel );
+				var result = _repoManager.PositionRepository.UpdatePosition(positionEditModel);
 
-				if ( result.repositoryActionsResult == RepositoryActionsResult.Success )
+				if (result.repositoryActionsResult == RepositoryActionsResult.Success)
 				{
-					return Ok ( result.positionViewModel );
+					return Ok(result.positionViewModel);
 				}
 				else
 				{
-					return BadRequest ();
+					return BadRequest();
 				}
 			}
 			else
@@ -111,12 +111,12 @@ namespace WebApiSample.WebApp.Controllers
 		/// <response code="200">Если удалось удалить должность.</response>
 		/// <response code="400">Если не удалось удалить должность.</response> 
 		/// <param name="positionId">Id должности.</param>
-		[HttpDelete ( "{positionId}" )]
-		public ActionResult DeletePosition (int positionId)
+		[HttpDelete("{positionId}")]
+		public ActionResult DeletePosition(int positionId)
 		{
 			var result = _repoManager.PositionRepository.DeletePositionById(positionId);
 
-			if ( result == RepositoryActionsResult.Success )
+			if (result == RepositoryActionsResult.Success)
 			{
 				return Ok();
 			}

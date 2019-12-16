@@ -13,7 +13,7 @@ namespace WebApiSample.Core.AutomapperProfiles
 	/// </summary>
 	public class EmployeeProfile : Profile
 	{
-		public EmployeeProfile ( )
+		public EmployeeProfile()
 		{
 			CreateMap<EmployeeEditModel, Employee>().ReverseMap();
 			CreateMap<EmployeeViewModel, Employee>().ReverseMap();
