@@ -46,11 +46,11 @@ namespace WebApiSample.WebApp
 			services.AddScoped<RepoManager>();
 
 			var mappingConfig = new MapperConfiguration(mc =>
-		  {
+			{
 			  mc.AddProfile(new PositionProfile());
 			  mc.AddProfile(new EmployeeProfile());
 			  mc.AddProfile(new EmployeePositionProfile());
-		  });
+			});
 
 			var mapper = mappingConfig.CreateMapper();
 
@@ -82,9 +82,9 @@ namespace WebApiSample.WebApp
 
 			app.UseSwagger();
 			app.UseSwaggerUI(c =>
-		  {
+			{
 			  c.SwaggerEndpoint("/swagger/v1/swagger.json", "Web API V1");
-		  });
+			});
 
 			app.UseEndpoints(endpoints =>
 			{
