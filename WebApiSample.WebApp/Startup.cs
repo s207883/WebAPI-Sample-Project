@@ -36,7 +36,7 @@ namespace WebApiSample.WebApp
 
 			services.AddDbContext<MainContext>
 				(
-					options => options.UseSqlServer(@"Server=(localdb)\mssqllocaldb;Database=LogroconDB;Integrated Security=true;"
+					options => options.UseSqlServer(@"Server=(localdb)\mssqllocaldb;Database=WebAPI_DB;Integrated Security=true;"
 				));
 
 			services.AddScoped<IPositionRepository, PositionRepository>();
@@ -46,11 +46,11 @@ namespace WebApiSample.WebApp
 			services.AddScoped<RepoManager>();
 
 			var mappingConfig = new MapperConfiguration(mc =>
-		  {
+			{
 			  mc.AddProfile(new PositionProfile());
 			  mc.AddProfile(new EmployeeProfile());
 			  mc.AddProfile(new EmployeePositionProfile());
-		  });
+			});
 
 			var mapper = mappingConfig.CreateMapper();
 
@@ -82,9 +82,9 @@ namespace WebApiSample.WebApp
 
 			app.UseSwagger();
 			app.UseSwaggerUI(c =>
-		  {
+			{
 			  c.SwaggerEndpoint("/swagger/v1/swagger.json", "Web API V1");
-		  });
+			});
 
 			app.UseEndpoints(endpoints =>
 			{

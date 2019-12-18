@@ -126,5 +126,28 @@ namespace WebApiSample.BLL.Implemetations
 			employeeViewModel.Positions = employeePositionsViewModel;
 			return employeeViewModel;
 		}
+
+		public IEnumerable<EmployeeViewModel> GetEmployees(int? skip = null, int? take = null)
+		{
+			var employees = _mainContext.Employees
+				.Skip(skip ?? 0)
+				.Take(take ?? int.MaxValue)
+				.AsNoTracking()
+				.ToList();
+			if (employees.Count > 0)
+			{
+				var employeeList = new List<EmployeeViewModel>();
+				foreach (var employee in employees)
+				{
+					var employeeViewModel = GetEmployeeViewModel(employee);
+					employeeList.Add(employeeViewModel);
+				}
+				return employeeList;
+			}
+			else
+			{
+				return default;
+			}
+		}
 	}
 }
