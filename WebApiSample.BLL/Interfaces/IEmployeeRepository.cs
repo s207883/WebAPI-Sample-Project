@@ -39,5 +39,13 @@ namespace WebApiSample.BLL.Interfaces
 		/// <param name="employeeId">Id сотрудника.</param>
 		/// <returns>Результат поиска и модель.</returns>
 		(RepositoryActionsResult repositoryActionResult, EmployeeViewModel employeeViewModel) GetEmployeeById(int employeeId);
+
+		/// <summary>
+		/// Получить всех сотрудников
+		/// </summary>
+		/// <param name="skip">Пропустить</param>
+		/// <param name="take">Взять</param>
+		/// <returns>Cписок сотрудников.</returns>
+		IEnumerable<EmployeeViewModel> GetEmployees(int? skip = null, int? take = null);
 	}
 }

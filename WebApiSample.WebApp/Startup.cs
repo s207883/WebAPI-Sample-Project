@@ -36,7 +36,7 @@ namespace WebApiSample.WebApp
 
 			services.AddDbContext<MainContext>
 				(
-					options => options.UseSqlServer(@"Server=(localdb)\mssqllocaldb;Database=LogroconDB;Integrated Security=true;"
+					options => options.UseSqlServer(@"Server=(localdb)\mssqllocaldb;Database=WebAPI_DB;Integrated Security=true;"
 				));
 
 			services.AddScoped<IPositionRepository, PositionRepository>();

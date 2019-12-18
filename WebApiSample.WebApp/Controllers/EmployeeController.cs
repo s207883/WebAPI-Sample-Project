@@ -47,6 +47,20 @@ namespace WebApiSample.WebApp.Controllers
 		}
 
 		/// <summary>
+		/// Получить список сотрудников.
+		/// </summary>
+		/// <param name="skip">Пропустить.</param>
+		/// <param name="take">Взять.</param>
+		/// <response code="200">Возвращает список сотрудников.</response>
+		/// <returns>Список сотрудников</returns>
+		[HttpGet]
+		public ActionResult<List<EmployeeViewModel>> GetEmployees(int? skip = null, int? take = null)
+		{
+			var employeeList = _repoManager.EmployeeRepository.GetEmployees(skip, take);
+			return Ok(employeeList);
+		}
+
+		/// <summary>
 		/// Удалить сотрудника.
 		/// </summary>
 		/// <response code="200">При успешном удалении сотрудника.</response>
