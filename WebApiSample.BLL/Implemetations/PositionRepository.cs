@@ -100,5 +100,14 @@ namespace WebApiSample.BLL.Implemetations
 				return (RepositoryActionsResult.Success, positionViewModel);
 			}
 		}
+
+		public IEnumerable<PositionViewModel> GetPositions(int? skip = null, int? take = null)
+		{
+			var positions = _mainContext.Positions.ToList();
+
+			var positionsViewModels = _mapper.Map<List<PositionViewModel>>(positions);
+
+			return positionsViewModels;
+		}
 	}
 }

@@ -45,11 +45,13 @@ namespace WebApiSample.WebApp
 
 			services.AddScoped<RepoManager>();
 
+			services.AddCors();
+
 			var mappingConfig = new MapperConfiguration(mc =>
 			{
-			  mc.AddProfile(new PositionProfile());
-			  mc.AddProfile(new EmployeeProfile());
-			  mc.AddProfile(new EmployeePositionProfile());
+				mc.AddProfile(new PositionProfile());
+				mc.AddProfile(new EmployeeProfile());
+				mc.AddProfile(new EmployeePositionProfile());
 			});
 
 			var mapper = mappingConfig.CreateMapper();
@@ -76,6 +78,8 @@ namespace WebApiSample.WebApp
 				app.UseDeveloperExceptionPage();
 			}
 
+			app.UseCors(options => options.AllowAnyOrigin().AllowAnyMethod());
+
 			app.UseRouting();
 
 			app.UseAuthorization();
@@ -83,7 +87,7 @@ namespace WebApiSample.WebApp
 			app.UseSwagger();
 			app.UseSwaggerUI(c =>
 			{
-			  c.SwaggerEndpoint("/swagger/v1/swagger.json", "Web API V1");
+				c.SwaggerEndpoint("/swagger/v1/swagger.json", "Web API V1");
 			});
 
 			app.UseEndpoints(endpoints =>

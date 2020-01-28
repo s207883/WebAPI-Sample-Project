@@ -75,6 +75,24 @@ namespace WebApiSample.WebApp.Controllers
 				return BadRequest();
 			}
 		}
+		
+		/// <summary>
+		/// Получить должности.
+		/// </summary>
+		/// <param name="skip">Пропустить.</param>
+		/// <param name="take">Взять.</param>
+		/// <returns>Список должностей.</returns>
+		[HttpGet]
+		public ActionResult<List<PositionViewModel>> GetPositions(int? skip = null, int? take = null)
+		{
+			var positions = _repoManager.PositionRepository.GetPositions(skip, take);
+
+			if (positions.Count() > 0)
+			{
+				return Ok(positions);
+			}
+			else return BadRequest();
+		}
 
 		/// <summary>
 		/// Обновить должность.
