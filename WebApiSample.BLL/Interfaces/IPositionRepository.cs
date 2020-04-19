@@ -39,5 +39,13 @@ namespace WebApiSample.BLL.Interfaces
 		/// <param name="positionId">Id должности.</param>
 		/// <returns>Результат и модель.</returns>
 		(RepositoryActionsResult repositoryActionsResult, PositionViewModel positionViewModel) GetPositionById(int positionId);
+
+		/// <summary>
+		/// Получить все должности.
+		/// </summary>
+		/// <param name="skip">Пропустить.</param>
+		/// <param name="take">Взять.</param>
+		/// <returns>Список должностей.</returns>
+		IEnumerable<PositionViewModel> GetPositions(int? skip = null, int? take = null);
 	}
 }

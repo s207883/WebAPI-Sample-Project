@@ -34,6 +34,12 @@ namespace WebApiSample.DAL
 		/// </summary>
 		protected override void OnModelCreating(ModelBuilder modelBuilder)
 		{
+			#region Employee Table
+			modelBuilder.Entity<Employee>()
+				.Property(p => p.BirthDate)
+				.HasColumnType("DATE");
+			#endregion
+
 			#region EployeePosition Table
 			modelBuilder.Entity<EmployeePosition>()
 				.HasKey(key => new { key.PositionId, key.EmployeeId });
